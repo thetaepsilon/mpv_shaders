@@ -1,0 +1,133 @@
+#!/usr/bin/env lua5.1
+-- simple variable substitutor.
+-- looks for ${var} and substitutes values provided on the command line.
+-- $ is used as an introducer, as it is rare to see in C-like languages.
+-- alternatively supports lines of the form //#optreplace <line with ${} variables>,
+-- where any variable substitution that fails results in the line being _skipped_.
+
+local log = function(msg)
+	io.stderr:write("# " .. msg .. "\n")
+end
+
+
+
+
+local map = {}
+local function process(sym, value, ...)
+	if sym == nil then return end
+	assert(value, "symbols and values must come in pairs on the command line.")
+
+	if map[sym] then
+		error("duplicate symbolic name already exists: " .. sym)
+	end
+	map[sym] = value
+
+	return process(...)
+end
+
+process(...)
+
+
+-- the {? is to catch and reject the old $var style which had various problems.
+-- the }? catches the case of EOL before the brace was closed.
+local varmatchpat = "$({?)([^}:]*)(:?)($?)([^}]*)(}?)"
+-- separated into a separate check so this case can be detected:
+-- "funny" chars can cause shell user issues and caps sensitivity causes confusion.
+-- same reason for excluding hyphen.
+local legalvarpat = "^[0-9a-z_]*$"
+local _lineno = 0
+local lineno = function() return "line " .. _lineno .. ": " end
+local lookup = function(startbrace, name, sep, defvarflag, default, endbrace)
+	if #startbrace < 1 then
+		error(lineno() .. "missing introductory brace: $" .. name .. endbrace)
+	end
+	if #endbrace < 1 then
+		error(lineno() .. "missing end brace (end of line?): $" ..
+			startbrace .. name .. endbrace)
+	end
+	if not name:match(legalvarpat) then
+		error(lineno() .. "illegal variable name: " .. name)
+	end
+
+	local v = map[name]
+	if not v then
+		if (#sep < 1) then
+			return nil, lineno() .. "undefined variable: " .. name
+		elseif (#defvarflag > 0) then
+			if not default:match(legalvarpat) then
+				return nil,
+					lineno() .. "illegal fallback variable name " ..
+					default .. " in expression: " ..
+					startbrace..name..sep..defvarflag..default..endbrace
+			end
+
+			v = map[default]
+			if not v then
+				return nil,
+					lineno() .. "neither var " .. name ..
+					" nor fallback var " .. default ..
+					" were set for expression: " ..
+					startbrace..name..sep..defvarflag..default..endbrace
+			end
+		else
+			v = default
+		end
+	end
+
+	return v
+end
+
+
+
+
+local handler = function(...)
+	local var, err = lookup(...)
+	if not var then error(err) end
+	return var
+end
+local transform_line = function(line)
+	return line:gsub(varmatchpat, handler)
+end
+
+-- filter between the different error causes here.
+-- syntax errors are always hard exceptions but substitution failures are soft.
+-- in this case replace those with a known error string so we can catch it out of gsub.
+-- also note we throw a table, which is perfectly fine as long as it's caught;
+-- the process of throwing a string prepends the source line to it so the comparison would break.
+local catch = {}
+local handler_catchable = function(...)
+	local var, err = lookup(...)
+	if not var then error(catch) end
+	return var
+end
+local transform_catchable = function(line)
+	return line:gsub(varmatchpat, handler_catchable)
+end
+local handle_replace = function(expr)
+	local success, data = pcall(transform_catchable, expr)
+	--print(success, data)
+	if success then
+		print(data)
+	elseif data ~= catch then
+		error(data)
+	end
+end
+
+
+
+for line in io.stdin:lines() do
+	_lineno = _lineno + 1
+
+	
+	local replace = line:match("^//#optreplace (.*)$")
+	
+	if replace then
+		handle_replace(replace)
+	else
+		local sub = transform_line(line)
+		print(sub)
+	end
+end
+
+
+

@@ -1,0 +1,44 @@
+#!/usr/bin/env lua5.1
+-- simple one-level preprocessor.
+-- instead of specifying filenames directly,
+-- the source files reference symbolic names which must be passed on the CLI in pairs.
+-- e.g. for "//#include foo" a pair starting with foo must exist in the CLI arguments.
+-- this allows that symbolic file to be pointed at different actual files as needed.
+-- actual data to be preprocessed is fed from stdin.
+
+local map = {}
+local function process(sym, path, ...)
+	if sym == nil then return end
+	assert(path, "names and paths must come in pairs on the command line.")
+
+	if map[sym] then
+		error("duplicate symbolic name already exists: " .. sym)
+	end
+	map[sym] = path
+
+	return process(...)
+end
+
+process(...)
+
+
+
+for line in io.stdin:lines() do
+	local _opt, sym = line:match("^%s*//#include(%??) (.*)$")
+	if sym then
+		local opt = #_opt > 0
+		local path = map[sym]
+		if (not path) and (not opt) then
+			error("no file defined for symbolic name: " .. sym)
+		end
+
+		if path then
+			local f = assert(io.open(path))
+			for l in f:lines() do print(l) end
+			f:close()
+		end
+	else
+		print(line)
+	end
+end
+

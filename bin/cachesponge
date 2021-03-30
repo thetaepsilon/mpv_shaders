@@ -1,0 +1,181 @@
+#!/bin/sh
+set -eu;
+
+err() { echo "#" "$@" >&2; };
+
+usage() {
+
+	_name="$(basename "$0")" || _name="$0";
+
+cat <<EOF >&2
+# Usage: some_other_program | $_name [personality]
+
+	saves stdin to a temporary file in a cache directory,
+	then outputs the name of that temporary file if storing and hashing it succeeded
+	(see env vars below for why hashing is done),
+	else outputs a nonexistant file path and returns non-zero.
+	this allows the input data to be repeated/duplicated as a file path argument
+	(see the "rep" script for instance that echos it's second argument N times),
+	as well as being useful to make up for lack of a <() redirect operator in some shells.
+
+	personality names a further subdirectory created for the temporary file.
+	useful for separating different callers to aid clean up the cache dir over time.
+	if not specified, the personality named "default" is assumed.
+	personality must not begin with a hyphen.
+
+	environment variables (default value, if any):
+	* CACHESPONGE_DIR		(\$cache/cachesponge,
+				where \$cache is first \$XDG_CACHE_DIR, then \$HOME/.cache,
+				else no default):
+
+		parent directory for personality subdirs. temporary files are then created under
+		\$CACHESPONGE_DIR/\$cachesponge_personality/ .
+		might be useful to set this in a shell profile to somewhere on a tmpfs or similar
+		(hence it being an upper case variable).
+
+	* CACHESPONGE_HASHER
+		hash program to use to assign a unique ID to the captured input.
+		this is used to avoid having useless duplicate copies of identical data.
+		carries no default as the various *sum programs are not portable in invocation.
+
+EOF
+
+	exit 1;
+};
+
+
+
+step="unknown";
+tmpfile="";
+cleanup() {
+	# /dev/error chosen to be (most likely) a non-existant path,
+	# so in the typical case of this program's stdout being used as an argument via $(),
+	# failure will result in a path that will fail to open, propogating the error.
+	echo "/dev/error/cachesponge/$step";
+
+	# if we were writing out to the tmpfile and something failed,
+	# clean that up seeing as we bailed anyway.
+	test -z "$tmpfile" || rm "$tmpfile" || \
+		err "warning: unable to remove anonymous temporary file";
+}
+trap cleanup EXIT;
+
+step=usage;
+if test $# -gt 1; then usage; fi;
+personality="${1:-default}";
+# look out for trying to type hyphen options for help (which we don't support anyway).
+helpdetect="${personality#-}";
+if test ${#helpdetect} -ne ${#personality}; then usage; fi;
+
+step=required_envvars;
+test -n "$CACHESPONGE_HASHER";
+
+# try to determine a suitable cache directory.
+# in order of preference:
+# * $CACHESPONGE_DIR, if set; else
+# * $XDG_CACHE_DIR/cachesponge, if set; else
+# * $HOME/.cache/cachesponge.
+# if the last choice is reached and $HOME isn't set for whatever reason,
+# then we throw up our hands and bail (automatically via the use of set -u).
+step=no_cache_dir;
+parent_dir="${CACHESPONGE_DIR:-${XDG_CACHE_DIR:-${HOME}/.cache}/cachesponge}";
+
+
+
+# created directories might be somewhere under /tmp or /run/user/$uid
+# (if users follow the usage advice for instance),
+# as the former sometimes is and the latter almost certainly is a tmpfs.
+# in the former case, other users likely have no business looking at these generated temporaries,
+# so to be safe create them mode 0700 to disable anything but the user looking in them.
+# presuming that is that the dir was not already setup with explicit other permissions.
+step="cant_create_cache_dir"
+priv_mkdir() {
+	err "$1";
+	mkdir -m 0700 "$1";
+};
+(
+	if test -e "$parent_dir"; then {
+		cd "$parent_dir"
+	}; else {
+		priv_mkdir "$parent_dir";
+	}; fi;
+
+	test -e "${personality}" || priv_mkdir "${personality}";
+);
+output_dir="${parent_dir}/${personality}";
+
+
+
+# get a temp file to save stdin to. mktemp as it turns out is _not_ in POSIX...
+# that would admittedly have been the first choice here.
+# however, as we are creating our own subdirs and files in our own temporary directory anyway,
+# we can just rely on getting some random bytes using dd(1) and running it though od(1) and tr(1).
+# error codes would get a bit tricky here alas if we used a shell pipeline.
+# we can technically almost store binary data in a regular variable,
+# however we lose a bit of entropy because newlines will become spaces.
+step=getrandom_fail;
+rnd="$(dd if=/dev/urandom bs=16 count=1 status=none)";
+
+
+
+# if printf isn't found, that part of the shell pipeline will get masked.
+# do some extra sanity testing to catch this.
+step=random_format_fail;
+
+# vv TIL about the hash builtin... sorta like which but a builtin, portable,
+# and doesn't actually emit the path, but will print a suitable error message when not found.
+hash printf;
+hex="$(printf "%s" "$rnd" | od -An -tx1 -v)";
+test -n "$hex";
+unset rnd;
+
+hash tr;
+tmpname="$(echo "$hex" | tr -d '\n ')";
+test -n "$tmpname";
+unset hex;
+
+
+
+step=write_open_fail;
+tmpfile="${output_dir}/.cachesponge_tmp_${tmpname}";
+unset tmpname;
+exec 3>"$tmpfile";
+# ^ fun fact, this will kill non-interactive shells in posix mode on fail even without set -e.
+# EXIT trap handlers do still execute thankfully.
+
+step=write_fail;
+cat >&3;
+step=write_close_fail;
+exec 3>&-;
+
+# if we get this far, hash the file and move it to it's final place based on the hash in hex.
+# this is so that repeat invocations that get the same output don't take up unnecessary space.
+# might be tempting to put e.g. sha256sum here, but that's not in POSIX either.
+# hence the reliance on the CACHESPONGE_HASHER variable;
+# we are forced to punt that setup to the user's environment.
+step=hash_open_fail;
+exec 4<"$tmpfile";
+step=hash_fail;
+rawhash="$("$CACHESPONGE_HASHER" <&4)";
+step=hash_close_fail;
+exec 4<&-;
+
+step=hash_strip_fail;
+# the common *sum utilities on some platforms output something like "-" after hashing stdin.
+# for user convenience, strip all chars that aren't hexademical.
+# this technically means some non-hash output could leak,
+# but as long as the main hash is sufficiently unique this should not be an issue.
+hash="$(printf '%s' "$rawhash" | tr -cd '0123456789abcdefABCDEF')";
+step=hash_length_fail;
+# we could check for a minimum length here,
+# but that doesn't prevent e.g. the variable being set wrong and we get a long string of 0's.
+# can't really gauge randomness but we can at least it's non-zero in length.
+test ${#hash} -gt 0;
+
+step=tempfile_move_fail;
+result="${output_dir}/${hash}";
+mv "${tmpfile}" "${result}";
+# we're all done, disengage the cleanup handler and yield the result.
+trap - EXIT;
+echo "${result}";
+

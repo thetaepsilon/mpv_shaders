@@ -1,0 +1,1 @@
+--glsl-shader=$(spp funcs spp/transform_coupled/exponent.frag.glsl < mapped_scale_coupled.spp.glsl | svar at MAINPRESUB in MAINPRESUB e 2.2 | cs) --glsl-shader=$(svar dim 0.25 in MAINPRESUB < crappy_scanlines.svar.glsl | cs)

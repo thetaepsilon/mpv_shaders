@@ -1,0 +1,1 @@
+--glsl-shader=$(spp funcs spp/transform_coupled/exponent.frag.glsl < mapped_scale_coupled.spp.glsl | svar at MAINPRESUB in MAINPRESUB e 0.73333333 | cs) --glsl-shader=$(spp kernel spp/blur_kernels/denormal/crt_bleed.frag.glsl < blur_kernel_1d.spp.svar.glsl | svar xs 1. in MAINPRESUB | cs) --glsl-shader=$(svar dim 0.5 in MAINPRESUB < crappy_scanlines.svar.glsl | cs)

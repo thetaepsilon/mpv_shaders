@@ -1,0 +1,106 @@
+#!/bin/sh
+set -eu;
+
+usage() {
+cat>&2 << EOF
+
+Usage: $0 presetdir hookpoint [input]
+	mpv shader pass generator: RGB channel modulation.
+	generates an rgb8 texture block of x * y pixels (specified in presetdir/x and presetdir/y)
+	sourcing hex data in presetdir/hex.txt, to be used in a generated hook pass.
+
+	each pixel of the hook's input (which is hookpoint if input is not specified)
+	will be multiplied by the corresponding pixel of the above texture block mod it's size
+	(in other words, the hex data texture forms a repeated tiling colour filter for the input).
+
+	* optional args as env vars:
+	out: where this hook SAVEs to, will default to whatever the input texture is.
+	verbose: log as such.
+
+EOF
+	exit 1;
+}
+
+if test $# -lt 2; then usage; fi;
+if test $# -gt 3; then usage; fi;
+
+preset="$1";
+displayname="$(basename "$preset")";
+hookpoint="$2";
+input="${3:-${hookpoint}}";
+output="${out:-}";
+
+readfile() {
+	cat "${preset}/$1";
+}
+
+hex="$(readfile hex.txt)";
+x="$(readfile x)";
+y="$(readfile y)";
+# hash the input data to provide a suitably unique texture block name.
+# not sure how mpv would handle two TEXTURE blocks with the same name,
+# so just to be safe make them unique on their contents so as to prevent interference.
+hash="$(echo "$hex" | sha1sum)";
+hash="$(echo "$hash" | tr -cd '0123456789abcdef')";
+texname="data_rgb_modulation_${hash}";
+
+
+
+log() {
+	if test -n "${verbose:-}"; then {
+		echo "#" "$@" >&2;
+	}; fi;
+}
+log "using preset: ${preset}";
+log "texture block name: ${texname}";
+log "display name: ${displayname}";
+log "texture block size: ${x} by ${y} pixels";
+log "data: ${hex}";
+#log "data hash: ${hash}";
+log "graph location: hook ${hookpoint} in ${input} out ${output}";
+
+
+
+cat <<EOF
+//!TEXTURE ${texname}
+//!SIZE ${x} ${y}
+//!FORMAT rgb8
+//!FILTER NEAREST
+${hex}
+
+//!HOOK ${hookpoint}
+//!DESC RGB colour filter modulation: ${displayname}
+//!BIND ${input}
+//!BIND ${texname}
+EOF
+
+# only emit the SAVE directive if an explicit output was set.
+# mpv can get a little upset about trying to dictate the size of buffers past PREKERNEL.
+if test -n "${output}"; then {
+	echo "//!SAVE ${output}";
+	echo "//!WIDTH ${input}.w";
+	echo "//!HEIGHT ${input}.h";
+}; fi;
+
+cat <<EOF
+vec4 hook() {
+	const float sx = ${x};
+	float x = mod(gl_FragCoord.x, sx) / sx;
+	const float sy = ${y};
+	float y = mod(gl_FragCoord.y, sy) / sy;
+
+	vec4 powers = texture2D(${texname}, vec2(x, y));
+	return ${input}_tex(${input}_pos) * powers;
+}
+EOF
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,24 @@
+#!/bin/sh
+set -eu;
+
+usage() {
+cat>&2 << EOF
+Usage: downscale_area_twopass inbuffer (x | y) x_multipler [y_multiplier]
+	mpv shader generator: area mapping downscale of inbuffer,
+	where x_multiplier by y_multiplier pixels of the input image
+	get mapped to one pixel in the result.
+	y_multiplier is optional and defaults to the value of x_multiplier.
+
+	the x | y argument specifies the order in which the shader passes are emitted;
+	if x, then the horizontal pass comes first; if y, the vertical pass.
+	it may be beneficial to pick the order that gives the smallest intermediate buffer size,
+	depending on the input video resolution (this tool cannot detect this ahead of time).
+
+	** optional arguments as env vars:
+	out: controls the //!SAVE directives, defaults to inbuffer if not set.
+
+EOF
+}
+
+usage;
+

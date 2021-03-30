@@ -1,0 +1,1 @@
+--glsl-shader=$(spp lutdata spp/nudge/3x3_lcd_u.frag.glsl < simple_nudge_and_colour.spp.glsl | svar in MAINPRESUB | cs) --glsl-shader=$(spp kernel spp/blur_kernels/2d/circular_3x3_3_7ths_condensed.frag.glsl < blur_kernel_2d.spp.svar.glsl | svar in MAINPRESUB input_gamma 2.2 output_gamma 2.2 e 1.2 | cs)  --glsl-shader=exact_output.glsl
