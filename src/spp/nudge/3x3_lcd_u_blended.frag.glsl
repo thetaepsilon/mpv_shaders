@@ -6,7 +6,7 @@
 
 #define USE_DRIFT_LUT 1
 #define DRIFT_LUT_IS_ABS 1
-#define T 0.333333333
+const float T = 0.333333333;
 #define ROW(Y)	vec2(-T, Y),	vec2(0., Y),	vec2(T, Y)
 const vec2 drift_lut[3*3] = vec2[](
 	ROW(0.),
@@ -14,7 +14,6 @@ const vec2 drift_lut[3*3] = vec2[](
 	ROW(0.5)
 );
 #undef ROW
-#undef T
 
 
 
