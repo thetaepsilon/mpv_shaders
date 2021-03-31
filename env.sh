@@ -17,7 +17,8 @@ cs() {
 # for when detection was broken.
 # it's not otherwise critical for the shaders though,
 # as long as --vo=gpu is used.
-hash mpvh || alias mpvh=mpv;
+# additionally, gles is used by default as it is the stricter subset in terms of shader language.
+hash mpvh || alias mpvh='mpv --opengl-es=yes';
 
 # assume the input has square pixels despite intended display aspect ratio
 # (useful when using shader passes that handle the aspect ratio themselves):
