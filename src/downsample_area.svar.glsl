@@ -39,7 +39,7 @@ vec4 hook() {
 		total += data;
 	}
 	}
-//#optreplace data = pow(data, vec3(1.) / vec3(${output_gamma}));
+//#optreplace total = pow(total, vec3(1.) / vec3(${output_gamma}));
 	return vec4(total * scale, 1.);
 }
 
