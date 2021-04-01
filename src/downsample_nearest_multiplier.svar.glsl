@@ -17,8 +17,8 @@ vec2 offset = vec2(0, 0);
 
 vec4 hook() {
 	vec2 inpix = gl_FragCoord.xy;
-	float tx = floor(inpix.x * SX);
-	float ty = floor(inpix.y * SY);
+	float tx = floor(inpix.x * float(SX));
+	float ty = floor(inpix.y * float(SY));
 
 	vec2 pix = vec2(tx + 0.5, ty + 0.5) + offset;
 
