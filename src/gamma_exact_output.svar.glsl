@@ -4,6 +4,7 @@
 //!COMPONENTS 3
 
 vec3 f(vec3 c) {
+	c = max(c, vec3(0.));
 	return pow(c, vec3(${gamma}));
 }
 
