@@ -7,12 +7,14 @@
 #define USE_DRIFT_LUT 1
 #define DRIFT_LUT_IS_ABS 1
 #define V(x) vec2(x, 0.)
+const float N1 = float(${n1:0.2});
+const float N2 = float(${n2:0.4});
 const vec2 drift_lut[5] = vec2[](
-	V(-0.4),
-	V(-0.2),
+	V(-N2),
+	V(-N1),
 	V(0.0),
-	V(0.2),
-	V(0.4)
+	V(N1),
+	V(N2)
 );
 
 
