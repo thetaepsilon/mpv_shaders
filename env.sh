@@ -1,4 +1,5 @@
 export PATH="$PATH:$PWD/bin";
+export SHADER_SRC="$PWD/src";
 export CACHESPONGE_HASHER=sha256sum;
 pp() {
 	cpp -C -ftrack-macro-expansion=0 -P -undef -nostdinc;
@@ -36,3 +37,25 @@ mpvhz() {
 mpvhk() {
 	mpvh --no-keepaspect "$@";
 }
+
+
+
+# shader chain helpers (can be used with any mpv wrapper, theoretically).
+# this one checks for a (previously set by something else)
+# variable called "m" which denotes if downsampling should be done.
+# this is useful for testing 3D content to emulate rendering that game or such at lower resolution.
+# if it is "1", this helper emits nothing.
+# otherwise, it will call svar on src/downsample_nearest_multiplier.svar.glsl,
+# setting x to the value of m, run it into cs, then echo it as a shader argument.
+# this is essentially intended to be used as mpv $(downsample) [other shaders here...].
+downsample() {
+	test -n "${m:-}" && {
+		test "1" -ne "$m" && {
+			echo --glsl-shader="$( \
+				svar x "$m" in MAINPRESUB < \
+					"$SHADER_SRC/downsample_nearest_multiplier.svar.glsl" \
+				| cs
+			)";
+		};
+	};
+};
