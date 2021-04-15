@@ -30,7 +30,7 @@ vec4 hook() {
 
 	}
 	vec3 result = total * scaler;
-//#optreplace result.rgb = pow(result.rgb, vec3(1 / ${output_gamma}));
+//#optreplace result.rgb = pow(result.rgb, vec3(1.) / vec3(${output_gamma}));
 	return vec4(result, 1.);
 }
 
