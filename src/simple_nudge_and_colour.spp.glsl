@@ -14,10 +14,14 @@ vec2 nearest(vec2 pix) {
 
 
 
-// util functions for transform_expr to use
+// util functions for transform_expr and edgedetect to possibly use.
 float sum(vec3 v) {
 	return (v.r + v.g + v.b);
 }
+
+
+
+//#include? edgedetect
 
 
 
@@ -70,6 +74,20 @@ vec4 hook() {
 	vec2 pos = srcpix / ${in}_size;
 	vec3 data = ${in}_tex(pos).rgb;
 	data = input_gamma(data);
+
+
+
+	// optional edge detection ish mode:
+	// the original location is sampled,
+	// and a function is given both the original and the lerped pixel value.
+	// for this to work the "edgedetect" optional spp include above must be loaded,
+	// and it must define USE_EDGEDETECT_FUNCTION as well as the below named function.
+	#ifdef USE_EDGEDETECT_FUNCTION
+	vec3 origin_data = ${in}_tex(nearest_pix / ${in}_size).rgb;
+	origin_data = input_gamma(origin_data);
+	vec3 edgedetected = edgedetect(origin_data, data);
+	data = bool(${edgedetect_ab_expr:true}) ? edgedetected : data;
+	#endif
 
 
 
