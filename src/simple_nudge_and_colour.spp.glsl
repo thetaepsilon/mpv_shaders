@@ -21,6 +21,14 @@ float sum(vec3 v) {
 
 
 
+vec3 input_gamma(vec3 data) {
+	data = max(data, vec3(0.));
+//#optreplace data = pow(data, vec3(${input_gamma}));
+	return data;
+}
+
+
+
 vec4 hook() {
 	vec2 inpix = gl_FragCoord.xy;
 //#optreplace if (${jitter_expr}) inpix += vec2(1.);
@@ -60,9 +68,9 @@ vec4 hook() {
 	#endif
 
 	vec2 pos = srcpix / ${in}_size;
-	vec4 data = ${in}_tex(pos);
-//#optreplace data.rgb = pow(data.rgb, vec3(${input_gamma}));
-	vec3 o = data.rgb;
+	vec3 data = ${in}_tex(pos).rgb;
+	data = input_gamma(data);
+	vec3 o = data;
 
 
 
@@ -74,9 +82,9 @@ vec4 hook() {
 	// in that case base colour and the usual mix procedures probably don't make sense.
 	#if ${alt_func_mode:0}
 
-	vec3 c = data.rgb;
+	vec3 c = data;
 	vec3 m = mixer;
-	data.rgb = (${alt_func_expr:alt_func_expr_not_defined()});
+	data = (${alt_func_expr:alt_func_expr_not_defined()});
 
 	// not alt_func_mode
 	#else
@@ -85,7 +93,7 @@ vec4 hook() {
 	#define MODULATE_BASE_COLOR ${basecol:0, 0, 0}
 	#endif
 	const vec3 base = vec3(MODULATE_BASE_COLOR);
-	data.rgb = mix(base, data.rgb, mixer);
+	data = mix(base, data, mixer);
 
 	// endif alt_func_mode
 	#endif
@@ -93,9 +101,9 @@ vec4 hook() {
 	#endif
 
 
-//#optreplace vec3 c = data.rgb; data.rgb = (${transform_expr});
+//#optreplace vec3 c = data; data = (${transform_expr});
 
-//#optreplace data.rgb = pow(data.rgb, vec3(1.) / vec3(${output_gamma}));
-	return data;
+//#optreplace data = pow(data, vec3(1.) / vec3(${output_gamma}));
+	return vec4(data, 1.);
 }
 
