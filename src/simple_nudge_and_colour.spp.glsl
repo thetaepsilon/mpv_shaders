@@ -70,7 +70,6 @@ vec4 hook() {
 	vec2 pos = srcpix / ${in}_size;
 	vec3 data = ${in}_tex(pos).rgb;
 	data = input_gamma(data);
-	vec3 o = data;
 
 
 
