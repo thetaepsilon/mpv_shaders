@@ -5,7 +5,7 @@
 
 vec3 f(vec3 c) {
 	c = max(c, vec3(0.));
-	return pow(c, vec3(${gamma}));
+	return pow(c, vec3(${gamma}) * vec3(${pregamma2:1.0}));
 }
 
 vec4 hook() {
