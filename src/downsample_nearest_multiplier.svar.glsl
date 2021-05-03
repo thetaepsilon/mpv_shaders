@@ -11,9 +11,7 @@
 #define TEXF ${in} ## _tex
 #define SZ (${in} ## _size)
 
-// TODO: update svar to allow optional variables?
-// would allow setting these optionally but have them default to zero.
-vec2 offset = vec2(0, 0);
+vec2 offset = vec2(float(${ox:0}), float(${oy:0}));
 
 vec4 hook() {
 	vec2 inpix = gl_FragCoord.xy;
