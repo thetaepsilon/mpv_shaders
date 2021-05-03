@@ -50,7 +50,7 @@ mpvhk() {
 # this is essentially intended to be used as mpv $(downsample) [other shaders here...].
 downsample() {
 	test -n "${m:-}" && {
-		test "1" -ne "$m" && {
+		test "1" != "$m" && {
 			echo --glsl-shader="$( \
 				svar x "$m" in MAINPRESUB < \
 					"$SHADER_SRC/downsample_nearest_multiplier.svar.glsl" \
