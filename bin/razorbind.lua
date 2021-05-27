@@ -39,6 +39,41 @@ local f = function(v)
 	assert(type(v) == "function")
 end
 
+-- wraps explicit error calls in a table so they can be distinguished from semantic bugs
+-- (which should continue to result in strings produced by the interpreter itself).
+-- see later on in main where return codes are handled.
+local _stacktrace = debug.traceback
+local _error = error
+local error_meta = {
+	__tostring = function(e)
+		return "input error: " .. e.message .. "\n" .. e.stacktrace
+	end
+}
+error = function(msg)
+	--local trace = _stacktrace()
+	local e = {
+		__synthetic = true,
+		message = msg,
+		--stacktrace = trace,
+	}
+	setmetatable(e, error_meta)
+	_error(e)
+end
+local is_synthetic = function(err)
+	return (type(err) == "table") and err.__synthetic
+end
+error_helper = function(e)
+	local trace = _stacktrace()
+	if not is_synthetic(e) then
+		local ret = {
+			message = e
+		}
+		e = ret
+	end
+	e.stacktrace = trace
+	return e
+end
+
 
 
 local err_type =
@@ -260,10 +295,6 @@ end
 
 
 
-
-
-
-
 local main = function(_print, getenv, ...)
 	local lookup, multiline = use_args(...)
 	local docfile = io.stdin
@@ -276,5 +307,23 @@ local main = function(_print, getenv, ...)
 	flush()
 end
 
-main(print, os.getenv, ...)
+-- somewhat annoyingly we can't catch stack traces from errors thrown by the interpreter usually.
+-- we have to employ a combination of xpcall and the error wrapper above.
+-- porting this to lua5.1 would require an argless wrapper for main here.
+local protected_main = function(...)
+	local success, err = xpcall(main, error_helper, ...)
+	local ret = 0
+	if not success then
+		local synthetic = is_synthetic(err)
+		ret = synthetic and 2 or 1
+		local label = synthetic and "thrown error" or "bug"
+		io.stderr:write(
+			label .. ": " .. err.message .. "\n" ..
+			err.stacktrace .. "\n")
+		io.stderr:flush()
+	end
+	return ret
+end
+
+os.exit(protected_main(print, os.getenv, ...))
 
