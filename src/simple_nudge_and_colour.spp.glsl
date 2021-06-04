@@ -18,6 +18,12 @@ vec2 nearest(vec2 pix) {
 float sum(vec3 v) {
 	return (v.r + v.g + v.b);
 }
+float avg(vec3 v) {
+	return sum(v) * 0.33333;
+};
+float hmax(vec3 v) {
+	return max(v.r, max(v.g, v.b));
+};
 
 
 
