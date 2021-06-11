@@ -3,7 +3,7 @@
 
 #define RESPONSE_FUNCTION_WELL_MAX 1.0
 vec3 well_response(vec3 c) {
-	return (2 * c) - (c * c);
+	return (vec3(2.) * c) - (c * c);
 }
 
 #define RESPONSE_FUNCTION_LEAK_MAX 1.0
