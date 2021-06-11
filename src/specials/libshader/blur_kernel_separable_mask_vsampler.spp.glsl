@@ -97,16 +97,6 @@ const vec3 pixel_mask[mask_area] = vec3[](
 	MASK_DATA
 );
 
-const float spread_scale = float(MASK_LIT_COUNT) / (float(mask_area));
-//const float spread_scale = 2. / 9.;
-
-#ifdef USE_RESPONSE_FUNCTIONS
-const float recombine_scale =
-	1. / (float(RESPONSE_FUNCTION_WELL_MAX) + float(RESPONSE_FUNCTION_LEAK_MAX));
-#endif
-
-vec2 orig_sz = ${in}_size;
-
 
 
 //
@@ -175,19 +165,13 @@ vec4 hook() {
 	// if the response function is in use then we need to get the actual well response too.
 	// the blurred data is the leaked light.
 	vec3 well = well_response(original);
-	// also take into account the fact the leaked light spreads over the entire mask,
-	// whereas the confined well light only stays in the originally lit pixels.
-	total = (total * spread_scale);
 	total += well;
-	// rescale to take into account the rated maximums of both functions.
-	total *= recombine_scale;
-	total = well;
 	#endif
 	
 
 	vec3 result = total * exposure;
 
-//#optreplace result = pow(result, vec3(1 / ${output_gamma}));
+//#optreplace result = pow(result, vec3(1.0) / vec3(${output_gamma}) );
 //#optreplace if (${ab_expr}) result = original; 
 
 	return vec4(result, 1.);
