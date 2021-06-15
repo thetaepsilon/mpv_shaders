@@ -23,7 +23,7 @@ const vec2 realscale = vec2(1.) / mask_size;
 
 
 
-vec3 vsample(vec2 vpix) {
+vec3 vsample_core(vec2 vpix) {
 	vec2 downscaled = vpix * realscale;
 	vec2 realpix = floor(downscaled) + vec2(0.5);
 	vec2 real_pt = realpix / ${in}_size;
@@ -37,6 +37,13 @@ vec3 vsample(vec2 vpix) {
 	vec3 mask = pixel_mask[idx];
 	data.rgb *= mask;
 
+	return data;
+}
+
+vec3 vsample(vec2 vpix) {
+	vec3 data = vsample_core(vpix);
+
+
 #ifdef USE_RESPONSE_FUNCTIONS
 #ifdef RESPONSE_FUNCTIONS_EXPECT_CLAMPED
 	data = clamp(data, 0., 1.);
@@ -46,6 +53,8 @@ vec3 vsample(vec2 vpix) {
 
 	return data;
 }
+
+
 
 
 
@@ -107,7 +116,7 @@ const vec2 mask_size = vec2(${mask_width}, ${mask_height}) * mask_mult;
 
 const vec2 realscale = vec2(1.) / mask_size;
 
-vec3 vsample(vec2 vpix) {
+vec3 vsample_core(vec2 vpix) {
 	vec2 downscaled = vpix * realscale;
 	vec2 realpix = floor(downscaled) + vec2(0.5);
 	vec2 real_pt = realpix / ${in}_size;
@@ -120,6 +129,13 @@ vec3 vsample(vec2 vpix) {
 	int idx = (int(modpix.y) * MASK_WIDTH) + int(modpix.x);
 	vec3 mask = pixel_mask[idx];
 	data.rgb *= mask;
+
+	return data;
+}
+
+vec3 vsample(vec2 vpix) {
+	vec3 data = vsample_core(vpix);
+
 
 #ifdef USE_RESPONSE_FUNCTIONS
 #ifdef RESPONSE_FUNCTIONS_EXPECT_CLAMPED
