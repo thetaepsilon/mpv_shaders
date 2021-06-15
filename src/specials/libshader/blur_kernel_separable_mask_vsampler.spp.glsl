@@ -174,7 +174,7 @@ vec4 hook() {
 
 
 	#ifdef USE_RESPONSE_FUNCTIONS
-	vec3 original = vsample(origin);
+	vec3 original = vsample_core(origin);
 	#ifdef RESPONSE_FUNCTIONS_EXPECT_CLAMPED
 	original = clamp(original, 0., 1.);
 	#endif
