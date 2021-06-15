@@ -173,8 +173,9 @@ vec4 hook() {
 	#endif
 
 
+	#define setup_origin vec3 original = vsample_core(origin)
 	#ifdef USE_RESPONSE_FUNCTIONS
-	vec3 original = vsample_core(origin);
+	setup_origin;
 	#ifdef RESPONSE_FUNCTIONS_EXPECT_CLAMPED
 	original = clamp(original, 0., 1.);
 	#endif
@@ -182,6 +183,9 @@ vec4 hook() {
 	// the blurred data is the leaked light.
 	vec3 well = well_response(original);
 	total += well;
+	#else
+	// ab_expr may still need it.
+//#optreplace setup_origin;	// ${ab_expr}
 	#endif
 	
 
