@@ -50,7 +50,7 @@ vec4 hook() {
 	total *= output_scale;
 
 	vec3 result = total;
-//#optreplace result = pow(result, vec3(1 / ${output_gamma}));
+//#optreplace result = pow(result, vec3(1.0) / vec3(${output_gamma}));
 	return vec4(result, 1.);
 }
 
