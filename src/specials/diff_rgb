@@ -56,10 +56,15 @@ EOF
 src_linear_main() {
 	cat << EOF
 
+/*
 // one approximation of human colour perception is the cube root of linear light.
 const vec3 perceptual = vec3(1. / 3.);
 // ... hence the reverse is naturally cubing.
 const vec3 undo_perceptual = vec3(3.);
+*/
+// ... adjustment to the above using slightly different gamma curve to address "pixel thinning".
+const vec3 perceptual = vec3(0.4);
+const vec3 undo_perceptual = vec3(2.5);
 
 
 
@@ -140,12 +145,15 @@ vec3 linear_light_main(int _which, vec3 left, vec3 centre, vec3 right) {
 	const vec3 diffspace = vec3(0.25);
 	vec3 d_comparison = pow(comparison, diffspace);
 	vec3 d_centre = pow(centre, diffspace);
-	vec3 diff = d_centre - d_comparison;
+	vec3 adiff = abs(d_centre - d_comparison);
+	// tuning of how fast the effect kicks in.
+	// FIXME: hold up, if below is exponential, don't we just adjust that to match this?
+	adiff = pow(adiff, vec3(1.25));
 
 
 	p_ret = pow(p_ret, undo_perceptual);
 	//p_ret *= vec3(1.0) - (abs(diff) * vec3(0.5));
-	p_ret *= exp2(vec3(-2.5) * abs(diff));
+	p_ret *= exp2(vec3(-4.5) * adiff);
 
 	return p_ret;
 }
