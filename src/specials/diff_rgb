@@ -107,7 +107,7 @@ vec3 linear_light_main(int _which, vec3 left, vec3 centre, vec3 right) {
 	ivec3 nudges = ivec3(-1, 0, 1);
 
 	// also nudge the function along depending on which subpixel we're in.
-	nudges += which * ivec3(1);
+	nudges += ivec3(which);
 	vec3 nudges_f = vec3(nudges) * 0.33;
 
 	// debug perceptual blend
@@ -118,9 +118,36 @@ vec3 linear_light_main(int _which, vec3 left, vec3 centre, vec3 right) {
 	vec3 modulate = vec3(1.0) - (vec3(are_nonzero) * 0.125);
 	p_ret *= modulate;
 
+	// do comparison of current and neighbor pixels in the appropriate direction.
+	// for each r, g and b channel,
+	// we need to do a three-way select of what is the "neighbour".
+	// this is a buggerance enough to do even two-way as it is in GLSL ES,
+	// due to lack of component-wise mix(bvec, genvec, genvec).
+	// so implement it manually with multiply masks and adds (and hope no NaNs appear).
+	// needs to be three-way as then we can naturally have zero difference comparing to itself,
+	// so the centre point of each subpixel doesn't lose any luminosity at this step.
+	ivec3 nudge_signs = clamp(nudges, -1, 1);
+	#define get_contrib(side, index) \
+		vec3 contrib_ ## side = side * vec3(equal(nudge_signs, ivec3( index )))
+	
+	get_contrib(left, -1);
+	get_contrib(centre, 0);
+	get_contrib(right, 1);
+	#undef get_contrib
+	vec3 comparison = contrib_left + contrib_right + contrib_centre;
+
+	// custom gamma for comparing differences
+	const vec3 diffspace = vec3(0.25);
+	vec3 d_comparison = pow(comparison, diffspace);
+	vec3 d_centre = pow(centre, diffspace);
+	vec3 diff = d_centre - d_comparison;
 
 
-	return pow(p_ret, undo_perceptual);
+	p_ret = pow(p_ret, undo_perceptual);
+	//p_ret *= vec3(1.0) - (abs(diff) * vec3(0.5));
+	p_ret *= exp2(vec3(-2.5) * abs(diff));
+
+	return p_ret;
 }
 
 EOF
