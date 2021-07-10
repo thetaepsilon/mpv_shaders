@@ -66,6 +66,10 @@ const vec3 undo_perceptual = vec3(3.);
 const vec3 perceptual = vec3(0.4);
 const vec3 undo_perceptual = vec3(2.5);
 
+vec3 proportional_diff(vec3 a, vec3 b) {
+	return abs(a - b);
+}
+
 
 
 
@@ -88,6 +92,7 @@ vec3 pick(vec3 _a, vec3 left, vec3 centre, vec3 right) {
 }
 
 // end copypasta
+
 
 
 
@@ -145,9 +150,8 @@ vec3 linear_light_main(int _which, vec3 left, vec3 centre, vec3 right) {
 	const vec3 diffspace = vec3(0.25);
 	vec3 d_comparison = pow(comparison, diffspace);
 	vec3 d_centre = pow(centre, diffspace);
-	vec3 adiff = abs(d_centre - d_comparison);
+	vec3 adiff = proportional_diff(d_centre, d_comparison);
 	// tuning of how fast the effect kicks in.
-	// FIXME: hold up, if below is exponential, don't we just adjust that to match this?
 	adiff = pow(adiff, vec3(1.25));
 
 
