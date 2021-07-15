@@ -128,9 +128,10 @@ vec3 diff_factor(vec3 a, vec3 b) {
 
 	diff = max(diff, zero);
 	// tuning of how fast the effect kicks in.
-	diff = pow(diff, vec3(1.25));
+	//diff = pow(diff, vec3(1.25));
 
-	vec3 mult = exp2(vec3(-2.5) * diff);
+	//vec3 mult = exp2(vec3(-2.5) * diff);
+	vec3 mult = vec3(1.0) - (min(diff, vec3(0.8)) * 0.8);
 
 	return mult;
 }
