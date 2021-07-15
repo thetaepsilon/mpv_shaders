@@ -70,12 +70,10 @@ const vec3 undo_perceptual = vec3(2.5);
 const vec3 bigtroublenow = vec3(1.0, 0.0, 1.0);
 
 vec3 proportional_diff(vec3 a, vec3 b) {
-	/*
-	vec3 ldiff = abs(a - b);
-
-	ldiff = clamp(ldiff, vec3(0.0), vec3(0.25));
-	return ldiff;
-	*/
+	// custom gamma for comparing differences
+	const vec3 diffspace = vec3(0.25);
+	a = pow(a, diffspace);
+	b = pow(b, diffspace);
 
 	/*
 	proportional diff by taking the ratio of the smallest value (per-channel)
@@ -129,6 +127,9 @@ vec3 proportional_diff(vec3 a, vec3 b) {
 	//if (any(lessThan(diff, zero))) return bigtroublenow;
 
 	diff = max(diff, zero);
+	// tuning of how fast the effect kicks in.
+	diff = pow(diff, vec3(1.25));
+
 	return diff;
 }
 
@@ -208,14 +209,7 @@ vec3 linear_light_main(int _which, vec3 left, vec3 centre, vec3 right) {
 	#undef get_contrib
 	vec3 comparison = contrib_left + contrib_right + contrib_centre;
 
-	// custom gamma for comparing differences
-	const vec3 diffspace = vec3(0.25);
-	vec3 d_comparison = pow(comparison, diffspace);
-	vec3 d_centre = pow(centre, diffspace);
-	vec3 adiff = proportional_diff(d_centre, d_comparison);
-	// tuning of how fast the effect kicks in.
-	adiff = pow(adiff, vec3(1.25));
-
+	vec3 adiff = proportional_diff(centre, comparison);
 
 	p_ret = pow(p_ret, undo_perceptual);
 	//p_ret *= vec3(1.0) - (abs(diff) * vec3(0.5));
