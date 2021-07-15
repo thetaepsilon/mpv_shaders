@@ -130,7 +130,9 @@ vec3 diff_factor(vec3 a, vec3 b) {
 	// tuning of how fast the effect kicks in.
 	diff = pow(diff, vec3(1.25));
 
-	return diff;
+	vec3 mult = exp2(vec3(-2.5) * diff);
+
+	return mult;
 }
 
 
@@ -209,11 +211,10 @@ vec3 linear_light_main(int _which, vec3 left, vec3 centre, vec3 right) {
 	#undef get_contrib
 	vec3 comparison = contrib_left + contrib_right + contrib_centre;
 
-	vec3 adiff = diff_factor(centre, comparison);
+	vec3 diff_mult = diff_factor(centre, comparison);
 
 	p_ret = pow(p_ret, undo_perceptual);
-	//p_ret *= vec3(1.0) - (abs(diff) * vec3(0.5));
-	p_ret *= exp2(vec3(-2.5) * adiff);
+	p_ret *= diff_mult;
 
 	return p_ret;
 }
