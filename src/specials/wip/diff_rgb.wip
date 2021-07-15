@@ -69,7 +69,7 @@ const vec3 undo_perceptual = vec3(2.5);
 // visual error flag colour (read in heavy's voice)
 const vec3 bigtroublenow = vec3(1.0, 0.0, 1.0);
 
-vec3 proportional_diff(vec3 a, vec3 b) {
+vec3 diff_factor(vec3 a, vec3 b) {
 	// custom gamma for comparing differences
 	const vec3 diffspace = vec3(0.25);
 	a = pow(a, diffspace);
@@ -209,7 +209,7 @@ vec3 linear_light_main(int _which, vec3 left, vec3 centre, vec3 right) {
 	#undef get_contrib
 	vec3 comparison = contrib_left + contrib_right + contrib_centre;
 
-	vec3 adiff = proportional_diff(centre, comparison);
+	vec3 adiff = diff_factor(centre, comparison);
 
 	p_ret = pow(p_ret, undo_perceptual);
 	//p_ret *= vec3(1.0) - (abs(diff) * vec3(0.5));
