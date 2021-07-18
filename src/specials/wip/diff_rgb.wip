@@ -29,7 +29,7 @@ output="${out:-$input}";
 # if the orientation at any time ends up with the order going _against_ the display
 # (e.g. BGR on an RGB display), the two will cancel out in a disruptive manner.
 # in any case, what these must do is set up up nudge offsets as used by linear_light_main() below.
-subpixel_order="${subpixel_order:-bgr}";
+subpixel_order="${subpixel_order:-rgb}";
 subpixel_order_rgb() { echo "1, 0, -1"; }
 subpixel_order_bgr() { echo "-1, 0, 1"; }
 ordering="$("subpixel_order_${subpixel_order}")" || \
