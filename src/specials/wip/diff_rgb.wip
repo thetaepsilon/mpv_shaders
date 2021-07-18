@@ -1,9 +1,44 @@
 #!/bin/sh
 set -eu;
 
+
+
+err() {
+	echo "#" "$@" >&2;
+}
+
+die() {
+	err "$@";
+	err "${0}: abort!"
+	exit 1;
+}
+
+
+
 hookpoint="${at:-MAINPRESUB}";
 input="${in:-$hookpoint}";
 output="${out:-$input}";
+
+
+
+# available subpixel orders.
+# only two really for the time being.
+# it is important that the picked order matches the user's real display,
+# if the display is itself either RGB or BGR stripes.
+# this _includes_ adjustment if the display is rotated.
+# if the orientation at any time ends up with the order going _against_ the display
+# (e.g. BGR on an RGB display), the two will cancel out in a disruptive manner.
+# in any case, what these must do is set up up nudge offsets as used by linear_light_main() below.
+subpixel_order="${subpixel_order:-bgr}";
+subpixel_order_rgb() { echo "1, 0, -1"; }
+subpixel_order_bgr() { echo "-1, 0, 1"; }
+ordering="$("subpixel_order_${subpixel_order}")" || \
+	die "unrecognised subpixel ordering: $subpixel_order";
+
+
+
+
+
 
 # setup block
 src_header() {
@@ -164,6 +199,8 @@ vec3 pick(vec3 _a, vec3 left, vec3 centre, vec3 right) {
 
 
 
+const ivec3 initial_nudges = ivec3(${ordering});
+
 vec3 linear_light_main(int _which, vec3 left, vec3 centre, vec3 right) {
 	#define S(c) vec3 p_ ## c = pow(c, perceptual)
 	S(left);
@@ -180,7 +217,7 @@ vec3 linear_light_main(int _which, vec3 left, vec3 centre, vec3 right) {
 	// so at the right (+x) edge of the virtual pixel it will have further progressed.
 	// XXX: allow overriding ordering here...
 	//const float T = 1. / 3.;
-	ivec3 nudges = ivec3(-1, 0, 1);
+	ivec3 nudges = initial_nudges;
 
 	// also nudge the function along depending on which subpixel we're in.
 	nudges += ivec3(which);
