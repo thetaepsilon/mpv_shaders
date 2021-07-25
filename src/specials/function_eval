@@ -1,0 +1,106 @@
+#!/bin/sh
+set -eu;
+
+err() {
+	echo "#" "$@" >&2;
+}
+
+
+envhelp_enabled() {
+cat <<EOF
+	# optional keyword arguments via env vars (default value):
+
+	hook ("POSTKERNEL"):
+		override the mpv shader stage to hook this pass at.
+		note that invalid hook names may cause silent failures.
+
+	size ("HOOKED.w", where the pass for HOOKED is set by hook above):
+		the mpv shader header size expression to use for //!WIDTH ,
+		which may reference HOOKED, a multiple of, or be a constant.
+		invalid values or references to missing or later run passes
+		(which may depend on the stage selected by hook above)
+		may cause this pass to be skipped with or without a warning.
+
+		note that only HOOKED will be present in a BIND statement.
+
+EOF
+}
+
+usage() {
+cat << EOF >&2
+# Usage: $0 path/to/function_fragment.glsl texture_name
+	A shader pass that evaluates f(x) for every pixel in a 1-high texture.
+	the texture will be the width of mpv's POSTKERNEL,
+	with x being the normalised (0.0 - 1.0) horizontal texture coordinate.
+	f(x) is a (possibly impure) function taking float x and returning float,
+	defined by function_fragment.glsl.
+
+	note that f(x) values are saved directly into the output texture,
+	so float output formats are a must.
+
+	setting texture_name to overwrite a hook texture is undefined behaviour.
+
+EOF
+	envhelp_enabled >&2;
+}
+
+if test "$#" -ne 2; then usage; exit 1; fi;
+fndef="$1";
+name="$2";
+
+hook="${hook:-POSTKERNEL}";
+size="${size:-${hook}.w}";
+
+exec 3<"$fndef";
+
+
+
+src_header() {
+	cat << EOF
+//!HOOK ${hook}
+//!DESC 1D f(x) evaluator -> texture ${name} ( "${size}" x 1 )
+//!BIND HOOKED
+//!SAVE ${name}
+//!WIDTH ${size}
+//!HEIGHT 1
+//!COMPONENTS 1
+
+
+
+EOF
+}
+
+
+
+src_main() {
+cat << EOF
+
+
+
+vec4 hook() {
+	float x = HOOKED_pos.x;
+	float y = f(x);
+	return vec4(y);
+}
+	
+EOF
+}
+
+
+
+
+
+
+
+src_header;
+
+# copy the function fragment to stdout as opened earlier
+cat <&3;
+
+src_main;
+
+
+
+
+
+
