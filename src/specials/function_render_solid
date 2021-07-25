@@ -1,0 +1,45 @@
+#!/bin/sh
+set -eu;
+
+usage() {
+	cat << EOF
+
+# Usage: $0 input_texture
+	draws float values from input_texture as a solid graph from left to right.
+	pixels whose Y value (forced to be traditional GL convention, Y is up)
+	is less than the current X value (as loaded from input_texture)
+	will be drawn white; black otherwise.
+
+	input_texture is expected to be a 1-high texture and will be sampled at y=0.5.
+	ideally it's width should match the output if linear interpolation is undesireable.
+EOF
+}
+
+
+
+if test $# -ne 1; then usage; exit 1; fi;
+input_texture="$1";
+
+
+
+cat << EOF
+//!HOOK OUTPUT
+//!DESC solid graph render, src ${input_texture}
+//!BIND HOOKED
+//!BIND ${input_texture}
+
+vec4 hook() {
+	vec2 pos = HOOKED_pos;
+	vec2 sample_pos = vec2(pos.x, 0.5);
+	float yin = ${input_texture}_tex(sample_pos).r;
+	// mpv, y u flip my stuff
+	float ycurrent = 1.0 - pos.y;
+
+	bool activate = ycurrent < yin;
+
+	vec3 col = activate ? vec3(1.0) : vec3(0.0);
+	return vec4(col, 1.0);
+}
+
+EOF
+
