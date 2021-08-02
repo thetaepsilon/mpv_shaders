@@ -302,9 +302,16 @@ src_fetch_main() {
 	# swizzle masks for converting to/from operation axes
 	op_swizzle="";
 	undo_swizzle="";
+	if test -n "$vertical"; then {
+		op_swizzle=".yx";
+		undo_swizzle=".ts";
+	}; fi;
 
 	# the step vector values used to determine sampling offsets.
 	step="1.0, 0.0";
+	if test -n "$vertical"; then {
+		step="0.0, 1.0";
+	}; fi;
 
 	cat << EOF
 
