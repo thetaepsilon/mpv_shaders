@@ -339,8 +339,8 @@ vec4 hook() {
 
 	vec2 op_current = to_op_axes(current_output_pixel);
 
-	float op_src_x = nearest_pixel(op_current.s / 3.0);
-	vec2 op_src_centre = vec2(op_src_x, op_current.t);
+	float op_src_major_axis = nearest_pixel(op_current.s / 3.0);
+	vec2 op_src_centre = vec2(op_src_major_axis, op_current.t);
 	vec2 src_centre = from_op_axes(op_src_centre);
 
 	vec4 centre = load(src_centre);
