@@ -72,7 +72,7 @@ src_header() {
 //!BIND $input
 //!SAVE $output
 //!WIDTH ${input}.w ${widthmult}
-//!HEIGHT ${output}.h ${heightmult}
+//!HEIGHT ${input}.h ${heightmult}
 //!COMPONENTS 3
 
 EOF
