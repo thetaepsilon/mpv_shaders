@@ -38,11 +38,15 @@ ordering="$("subpixel_order_${subpixel_order}")" || \
 
 
 # "crt mode": disables the darkening of the colour channels when it's not their home position.
+# otherwise the below applies.
+base_darken="${base_darken:-7. / 64.}"
+
 src_frag_main_crt_mode_disabled() {
 	cat << EOF
 	// darken the channels when in lerp phase
 	bvec3 are_nonzero = greaterThan(abs(nudges), ivec3(0));
-	vec3 modulate = vec3(1.0) - (vec3(are_nonzero) * 7. / 64.);
+	const vec3 base_darken = vec3(${base_darken});
+	vec3 modulate = vec3(1.0) - (vec3(are_nonzero) * base_darken);
 	p_ret *= modulate;
 EOF
 }
