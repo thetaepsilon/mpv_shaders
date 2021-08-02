@@ -299,6 +299,10 @@ EOF
 # and then using the result as the shader output.
 # the precise load mechanism may change later if a more efficient method is discovered.
 src_fetch_main() {
+	# swizzle masks for converting to/from operation axes
+	op_swizzle="";
+	undo_swizzle="";
+
 	cat << EOF
 
 #define SZ ${input}_size
@@ -320,11 +324,11 @@ vec2 step_v = vec2(1.0, 0.0);
 // in which case this function is a no-op from a traditional x-y vector.
 // TODO: enable overriding.
 vec2 to_op_axes(vec2 xy) {
-	return xy;
+	return xy${op_swizzle};
 }
 // and the inverse.
 vec2 from_op_axes(vec2 st) {
-	return st;
+	return st${undo_swizzle};
 }
 
 vec2 steps(float steps_f) {
