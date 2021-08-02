@@ -306,6 +306,19 @@ float nearest_pixel(float value) {
 }
 
 vec2 step_v = vec2(1.0, 0.0);
+
+// go from x, y to major, minor axis.
+// major is the direction of operation and is /usually/ X,
+// in which case this function is a no-op from a traditional x-y vector.
+// TODO: enable overriding.
+vec2 to_op_axes(vec2 xy) {
+	return xy;
+}
+// and the inverse.
+vec2 from_op_axes(vec2 st) {
+	return st;
+}
+
 vec2 steps(float steps_f) {
 	return step_v * vec2(steps_f);
 }
@@ -316,8 +329,11 @@ vec4 hook() {
 	// y doesn't have to be touched, as the image height isn't being changed.
 	vec2 current_output_pixel = gl_FragCoord.xy;
 
-	float src_x = nearest_pixel(current_output_pixel.x / 3.0);
-	vec2 src_centre = vec2(src_x, current_output_pixel.y);
+	vec2 op_current = to_op_axes(current_output_pixel);
+
+	float op_src_x = nearest_pixel(op_current.s / 3.0);
+	vec2 op_src_centre = vec2(op_src_x, op_current.t);
+	vec2 src_centre = from_op_axes(op_src_centre);
 
 	vec4 centre = load(src_centre);
 	vec4 left = load(src_centre + steps(-1.0));
