@@ -54,8 +54,8 @@ src_frag_main_crt_mode() {
 
 
 
-# currently hardcoded off during refactoring.
-vertical="";
+# vertical mode: swaps which axis this pass operates in.
+vertical="${vertical:-}";
 
 
 
@@ -332,7 +332,6 @@ vec2 step_v = vec2(${step});
 // go from x, y to major, minor axis.
 // major is the direction of operation and is /usually/ X,
 // in which case this function is a no-op from a traditional x-y vector.
-// TODO: enable overriding.
 vec2 to_op_axes(vec2 xy) {
 	return xy${op_swizzle};
 }
