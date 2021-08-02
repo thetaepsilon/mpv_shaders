@@ -54,6 +54,11 @@ src_frag_main_crt_mode() {
 
 
 
+# currently hardcoded off during refactoring.
+vertical="";
+
+
+
 
 
 _stretch="3 *"
@@ -63,8 +68,11 @@ src_header() {
 	widthmult="";
 	heightmult="";
 
-	# TODO: currently hardcoded to historical behaviour here.
-	widthmult="$_stretch";
+	if test -z "$vertical"; then {
+		widthmult="$_stretch";
+	}; else {
+		heightmult="$_stretch";
+	}; fi;
 
 	cat << EOF
 
