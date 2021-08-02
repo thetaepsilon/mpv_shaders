@@ -303,6 +303,9 @@ src_fetch_main() {
 	op_swizzle="";
 	undo_swizzle="";
 
+	# the step vector values used to determine sampling offsets.
+	step="1.0, 0.0";
+
 	cat << EOF
 
 #define SZ ${input}_size
@@ -317,7 +320,7 @@ float nearest_pixel(float value) {
 	return floor(value) + 0.5;
 }
 
-vec2 step_v = vec2(1.0, 0.0);
+vec2 step_v = vec2(${step});
 
 // go from x, y to major, minor axis.
 // major is the direction of operation and is /usually/ X,
