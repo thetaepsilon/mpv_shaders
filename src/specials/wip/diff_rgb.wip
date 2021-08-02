@@ -348,7 +348,7 @@ vec4 hook() {
 	vec4 right = load(src_centre + steps(1.0));
 
 	// additionally work out which "subpixel" we are currently located in.
-	float which_f = mod(gl_FragCoord.x, 3.0);
+	float which_f = mod(op_current.s, 3.0);
 	int which = int(which_f);
 
 	return loaded_main(which, left, centre, right);
