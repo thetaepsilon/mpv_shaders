@@ -56,15 +56,23 @@ src_frag_main_crt_mode() {
 
 
 
+_stretch="3 *"
+
 # setup block
 src_header() {
+	widthmult="";
+	heightmult="";
+
+	# TODO: currently hardcoded to historical behaviour here.
+	widthmult="$_stretch";
+
 	cat << EOF
 
 //!HOOK $hookpoint
 //!BIND $input
 //!SAVE $output
-//!WIDTH ${input}.w 3 *
-//!HEIGHT ${output}.h
+//!WIDTH ${input}.w ${widthmult}
+//!HEIGHT ${output}.h ${heightmult}
 //!COMPONENTS 3
 
 EOF
