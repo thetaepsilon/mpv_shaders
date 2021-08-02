@@ -297,6 +297,11 @@ float nearest_pixel(float value) {
 	return floor(value) + 0.5;
 }
 
+vec2 step_v = vec2(1.0, 0.0);
+vec2 steps(float steps_f) {
+	return step_v * vec2(steps_f);
+}
+
 vec4 hook() {
 	// work out nearest pixel in source image along x axis,
 	// then load that as well as the two neighbours.
@@ -307,8 +312,8 @@ vec4 hook() {
 	vec2 src_centre = vec2(src_x, current_output_pixel.y);
 
 	vec4 centre = load(src_centre);
-	vec4 left = load(src_centre + vec2(-1., 0.));
-	vec4 right = load(src_centre + vec2(1., 0.));
+	vec4 left = load(src_centre + steps(-1.0));
+	vec4 right = load(src_centre + steps(1.0));
 
 	// additionally work out which "subpixel" we are currently located in.
 	float which_f = mod(gl_FragCoord.x, 3.0);
