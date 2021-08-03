@@ -1,4 +1,4 @@
-//!HOOK MAINPRESUB
+//!HOOK ${at:MAINPRESUB}
 //!BIND HOOKED
 //!BIND ${blur:blurdata}
 //!DESC bloom using additive blur data ("blur data not included!")
