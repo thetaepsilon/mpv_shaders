@@ -29,7 +29,7 @@ vec4 hook() {
 	result = min(result, vec3(1.0));
 //#optreplace #endif	// ${disable_clamp}
 
-//#optreplace result.rgb = pow(result.rgb, vec3(1 / ${output_gamma}));
+//#optreplace result.rgb = pow(result.rgb, vec3(1.0) / vec3(${output_gamma}) );
 	return vec4(result, 1.);
 }
 
