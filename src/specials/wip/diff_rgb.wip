@@ -232,10 +232,20 @@ vec3 pick(vec3 _a, vec3 left, vec3 centre, vec3 right) {
 
 
 
+// linear to comparison space for the anti-thinning countermeasure below.
+vec3 thinning_compare(vec3 col) {
+	return col;
+}
+
+
+
+
 
 
 
 const ivec3 initial_nudges = ivec3(${ordering});
+
+#define X_DO_PIXELS X(left) X(centre) X(right)
 
 vec3 linear_light_main(int _which, vec3 left, vec3 centre, vec3 right) {
 	#define S(c) vec3 p_ ## c = pow(c, perceptual)
@@ -285,10 +295,29 @@ cat << EOF
 
 	vec3 diff_mult = diff_factor(centre, comparison);
 
-	p_ret = pow(p_ret, undo_perceptual);
-	p_ret *= diff_mult;
+	vec3 linear_ret = pow(p_ret, undo_perceptual);
+	linear_ret *= diff_mult;
 
-	return p_ret;
+
+
+	// another stab at addressing perceived pixel thinning problems:
+	// sometimes if you've got a run of e.g. red pixels with a white one standing out,
+	// the stronger green and blue pixels may appear to be getting invaded by the surroundings.
+	// try and compensate for this by detecting when the current source pixel "stands out"
+	// (which is to say it is noticeably higher channel values than it's surroundings),
+	// and lerping the overall colour of the subpixel towards that of the source pixel.
+	#define X(name) vec3 thc_ ## name = thinning_compare( name );
+	X_DO_PIXELS
+	#undef X
+	const vec3 Z = vec3(0.);
+	vec3 thc_diff_l = max(Z, thc_centre - thc_left);
+	vec3 thc_diff_r = max(Z, thc_centre - thc_right);
+	vec3 thc_diff_min = min(thc_diff_l, thc_diff_r);
+	thc_diff_min *= ${thc_diff_scale:-0.25};
+	linear_ret = mix(linear_ret, centre, thc_diff_min);
+
+
+	return linear_ret;
 }
 
 EOF
