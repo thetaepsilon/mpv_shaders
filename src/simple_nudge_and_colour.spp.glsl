@@ -1,4 +1,4 @@
-//!HOOK MAINPRESUB
+//!HOOK ${at:MAINPRESUB}
 //!DESC integer upscaling pass with configurable nudge and colourize LUTs
 //!BIND ${in}
 //!SAVE ${out:$in}
