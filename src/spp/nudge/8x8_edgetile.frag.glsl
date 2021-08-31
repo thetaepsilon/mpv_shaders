@@ -1,5 +1,5 @@
-//!WIDTH HOOKED.w 8 *
-//!HEIGHT HOOKED.h 8 *
+//!WIDTH ${in}.w 8 *
+//!HEIGHT ${in}.h 8 *
 #define HPIXSZ 8
 #define VPIXSZ 8
 

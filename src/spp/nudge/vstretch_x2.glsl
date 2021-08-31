@@ -1,5 +1,5 @@
-//!WIDTH HOOKED.w 1 *
-//!HEIGHT HOOKED.h 2 *
+//!WIDTH ${in}.w 1 *
+//!HEIGHT ${in}.h 2 *
 #define HPIXSZ 1
 #define VPIXSZ 2
 
