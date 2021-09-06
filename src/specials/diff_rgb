@@ -137,7 +137,7 @@ const vec3 bigtroublenow = vec3(1.0, 0.0, 1.0);
 
 vec3 diff_factor(vec3 a, vec3 b) {
 	// custom gamma for comparing differences
-	const vec3 diffspace = vec3(0.25);
+	const vec3 diffspace = vec3(${diffspace_gamma:-0.25});
 	a = pow(a, diffspace);
 	b = pow(b, diffspace);
 
@@ -181,6 +181,7 @@ vec3 diff_factor(vec3 a, vec3 b) {
 	vec3 higher_nz = _higher + vec3(is_zero);
 
 	vec3 ratio = lower / higher_nz;
+	ratio = pow(ratio, vec3(${ratio_gamma:-1.0}));
 
 	// ratio of 1.0 means lower == higher, aka zero difference.
 	vec3 diff = vec3(1.0) - ratio;
@@ -207,8 +208,16 @@ cat << EOF
 	//if (any(lessThan(diff, zero))) return bigtroublenow;
 
 	diff = max(diff, zero);
+EOF
+
+	if test -n "${diffpow:-}"; then {
+cat << EOF
 	// tuning of how fast the effect kicks in.
-	//diff = pow(diff, vec3(1.25));
+//#optreplace diff = pow(diff, vec3( ${diffpow} ));
+EOF
+	}; fi;
+
+cat << EOF
 
 	//vec3 mult = exp2(vec3(-2.5) * diff);
 	vec3 mult = vec3(1.0) - (min(diff, vec3(0.8)) * ${diffscale:-0.8});
