@@ -15,9 +15,13 @@ die() {
 
 
 
-hookpoint="${at:-MAINPRESUB}";
+hookpoint="${at:-LINEAR}";
 input="${in:-$hookpoint}";
-output="${out:-$input}";
+# out needs to be explicit because as of writing (20210906, mpv 0.33.1),
+# LINEAR is a fixed target texture so can't be resized while being overwritten.
+# XXX: if out has to be explict, we _could_ in future enable direct POSTKERNEL writes.
+# would need detection of out of bounds positions though.
+output="${out}";
 
 
 
@@ -98,25 +102,19 @@ EOF
 src_loaded_main() {
 	cat << EOF
 
-vec3 linearise_input(vec4 v) {
-	// XXX: probably need to do something more clever here in future,
-	// like actually interpreting sRGB or such properly.
-	// not sure if mpv exposes linear channels for non-HDR content though.
-	vec3 col = clamp(v.rgb, vec3(0.0), vec3(1.0));
-	return pow(col, vec3(2.2));
-}
-
-vec4 output_to_display_space(vec3 result) {
-	// XXX: again here assuming output display is fixed values...
-	// also we may need to in future output in an adjustable colour space for later stages.
-	return vec4(pow(result, vec3(1. / 2.2)), 1.0);
-}
-
 vec4 loaded_main(int which, vec4 left, vec4 centre, vec4 right) {
-	#define L linearise_input
+	#define X(var) vec3 col_ ## var = max( var.rgb, vec3(0.0));
+	// this X-macro list is not reused yet, so just invoke it inline here.
+	X(left)
+	X(centre)
+	X(right)
+	#undef X
+
+	#define L(var) col_ ## var
 	vec3 result = linear_light_main(which, L(left), L(centre), L(right));
 	#undef L
-	return output_to_display_space(result);
+	result = max(result, vec3(0.0));
+	return vec4(result, 1.0);
 }
 
 EOF
