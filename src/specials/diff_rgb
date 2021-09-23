@@ -219,8 +219,10 @@ EOF
 
 cat << EOF
 
+	// maximum diff factor is also clamped as beyond a point the effect looks out of place.
+	vec3 clamped_factor = (min(diff, vec3(0.8)) * ${diffscale:-0.8});
 	//vec3 mult = exp2(vec3(-2.5) * diff);
-	vec3 mult = vec3(1.0) - (min(diff, vec3(0.8)) * ${diffscale:-0.8});
+	vec3 mult = vec3(1.0) - clamped_factor;
 	mult = max(mult, zero);
 
 	return mult;
