@@ -1,10 +1,10 @@
-const float lt_epsilon = -1. / 1024.;
+const vec3 lt_epsilon = vec3(-1. / 1024.);
 
-float f_undo(float c) {
+vec3 f(vec3 c) {
 	// note: this value must be kept in sync with the original presel stage!
-	const float n = ${stops:8.};
-	const float e = (c * n) - n;
-	if ((e - lt_epsilon) < -n) return 0.;
-	const float v = pow(2, e);
+	const vec3 n = vec3(${stops:8.});
+	vec3 e = vec3((c * n) - n);
+	//if ((e - lt_epsilon) < -n) return 0.; // !?
+	vec3 v = pow(vec3(2.0), e);
 	return v;
 }
