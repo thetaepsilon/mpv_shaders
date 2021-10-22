@@ -334,7 +334,7 @@ cat << EOF
 	vec3 thc_diff_l = max(Z, thc_centre - thc_left);
 	vec3 thc_diff_r = max(Z, thc_centre - thc_right);
 	vec3 thc_diff_min = min(thc_diff_l, thc_diff_r);
-	thc_diff_min *= ${thc_diff_scale:-0.25};
+	thc_diff_min *= vec3(${thc_diff_scale:-0.25});
 	linear_ret = mix(linear_ret, centre, thc_diff_min);
 
 
