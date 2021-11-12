@@ -6,6 +6,9 @@
 //!HEIGHT ${in}.h
 //!COMPONENTS 3
 
+#define S(v) ((2*v) + 1)
+#define KERNEL_SIZE S(KERNEL_RADIUS_X) * S(KERNEL_RADIUS_Y)
+
 //#include kernel
 
 
@@ -16,11 +19,19 @@
 const float output_scale = ${e:1.0};
 const int kernel_radius_x = KERNEL_RADIUS_X;
 const int kernel_radius_y = KERNEL_RADIUS_Y;
-#define S(v) ((2*v) + 1)
 const int kernel_size = S(kernel_radius_x) * S(kernel_radius_y);
+
+
+#ifndef KERNEL_DIRECT_DEFINE
+#define XR(v) (v) ,
 const vec3 kernel_data[kernel_size] = vec3[](
 	KERNEL_DATA
 );
+#undef XR
+
+const vec3 kernel_scale = vec3( KERNEL_SCALE );
+#endif // KERNEL_DIRECT_DEFINE
+
 
 vec4 hook() {
 	vec2 origin = gl_FragCoord.xy;
@@ -46,7 +57,7 @@ vec4 hook() {
 	}
 	#undef LOOP
 
-	total *= ( KERNEL_SCALE );
+	total *= ( kernel_scale );
 	total *= output_scale;
 
 	vec3 result = total;
