@@ -62,6 +62,8 @@ vec4 hook() {
 
 	vec3 result = total;
 //#optreplace result = pow(result, vec3(1.0) / vec3(${output_gamma}));
+	// XXX: we really need this in the other blur shaders... how to DRY this though
+//#optreplace result *= vec3(${lexp});
 	return vec4(result, 1.);
 }
 
