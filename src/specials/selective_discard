@@ -1,0 +1,31 @@
+#!/bin/sh
+set -eu;
+
+at="${at:-MAIN}";
+in="${in:-$at}";
+out="${out:-$in}"
+
+expr="${expr}";
+
+cat << EOF
+//!HOOK ${at}
+//!DESC selective discard expression: ${expr}
+//!BIND ${in}
+//!SAVE ${out}
+//!WIDTH ${in}.w
+//!HEIGHT ${in}.h
+
+vec4 hook() {
+	// variables available to use in expression
+	vec2 fpix = gl_FragCoord.xy;
+	ivec2 ipix = ivec2(fpix);
+	vec2 pos = ${in}_pos;
+
+	if (${expr}) discard;
+
+	vec4 data = ${in}_tex(pos);
+	return data;
+}
+
+EOF
+
