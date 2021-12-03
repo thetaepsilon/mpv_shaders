@@ -14,6 +14,11 @@
 const float bias_f = float( ${bias:0.} );
 const vec2 bias = vec2(bias_f, 0.);
 
+// helper function for input_transform expression
+vec3 unit_range(vec3 data) {
+	return clamp(data, vec3(0.), vec3(1.));
+}
+
 vec4 hook() {
 	vec2 origin = gl_FragCoord.xy;
 	vec3 total = vec3(0.);
@@ -22,7 +27,9 @@ vec4 hook() {
 		vec2 pix = origin + (vec2(i, 0) * ${sscale:1.}) + bias;
 		vec2 pt = pix / SZ;
 		vec3 data = TEXF(pt).rgb;
-//#optreplace data = pow(clamp(data, 0., 1.), vec3(${input_gamma}));
+		data = clamp(data, vec3(0.), vec3(1.));
+//#optreplace data = pow(data, vec3(${input_gamma}));
+//#optreplace data = ${input_transform};
 
 		int idx = i + kernel_radius;
 		float m = kernel_data[idx];
@@ -88,6 +95,7 @@ vec4 hook() {
 //#optreplace if (${ab_expr}) result = original; 
 
 //#optreplace result = pow(result, vec3(1. / float(${output_gamma})));
+//#optreplace result = ${output_transform};
 
 	return vec4(result, 1.);
 }
