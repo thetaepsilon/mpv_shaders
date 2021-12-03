@@ -1,0 +1,39 @@
+#!/bin/sh
+set -eu;
+
+expr="$1";
+
+after="${after:-LINEAR}";
+in="${in:-$after}";
+out="${out:-$in}";
+
+_ab_start="";
+_ab_end="";
+if test -n "${ab_expr:-}"; then {
+	_ab_start="if (${ab_expr}) {";
+	_ab_end="}"
+}; fi;
+
+
+cat << EOF
+//!HOOK ${after}
+//!DESC transform rgb according to arbitrary expression
+//!BIND ${in}
+//!SAVE ${out}
+//!WIDTH ${in}.w
+//!HEIGHT ${in}.h
+//!COMPONENTS 3
+
+
+
+vec4 hook() {
+	vec3 c = ${in}_tex(${in}_pos).rgb;
+
+	${_ab_start}
+		c = ${expr};
+	${_ab_end}
+	
+	return vec4(c, 1.);
+}
+EOF
+
