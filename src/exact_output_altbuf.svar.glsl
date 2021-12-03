@@ -18,5 +18,7 @@ vec4 hook() {
 			discard;
 		}
 	}
-	return TEXF(pos);
+	vec4 data = TEXF(pos);
+//#optreplace data.rgb *= vec3(${lexp});
+	return data;
 }
