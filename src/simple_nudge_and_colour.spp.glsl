@@ -120,26 +120,11 @@ vec4 hook() {
 	#ifdef USE_MODULATION_LUT
 	vec3 mixer = modulate_lut[idx];
 
-	// svar debug may override what is meant by darkening the pixel
-	// (sometimes a simple multiply doesn't look right).
-	// in that case base colour and the usual mix procedures probably don't make sense.
-	#if ${alt_func_mode:0}
-
-	vec3 c = data;
-	vec3 m = mixer;
-	data = (${alt_func_expr:alt_func_expr_not_defined()});
-
-	// not alt_func_mode
-	#else
-
 	#ifndef MODULATE_BASE_COLOR
 	#define MODULATE_BASE_COLOR ${basecol:0, 0, 0}
 	#endif
 	const vec3 base = vec3(MODULATE_BASE_COLOR);
 	data = mix(base, data, mixer);
-
-	// endif alt_func_mode
-	#endif
 
 	#endif
 
