@@ -39,6 +39,25 @@ vec3 input_gamma(vec3 data) {
 
 
 
+
+#ifdef USE_TINT_LUT
+const float tint_max = TINT_MAX;
+const vec3 tint_normalise = vec3(1.) / vec3(tint_max);
+
+#ifndef TINT_DEFAULT
+#define TINT_DEFAULT _err_tint_default_not_defined
+#endif
+
+const vec3 tint_mix = vec3(${tint_strength:TINT_DEFAULT});
+const vec3 tint_total_normalise = vec3(1.0) / (vec3(1.0) + tint_mix);
+
+#define TINT_ENABLE 1
+
+#endif
+
+
+
+
 vec4 hook() {
 	vec2 inpix = gl_FragCoord.xy;
 //#optreplace if (${jitter_expr}) inpix += vec2(1.);
@@ -79,6 +98,7 @@ vec4 hook() {
 
 	vec2 pos = srcpix / ${in}_size;
 	vec3 data = ${in}_tex(pos).rgb;
+	data = max(data, vec3(0.));
 	data = input_gamma(data);
 
 
@@ -122,6 +142,16 @@ vec4 hook() {
 	#endif
 
 	#endif
+
+
+
+	#ifdef TINT_ENABLE
+	vec3 tint = tint_lut[idx];
+	tint *= tint_normalise;
+	data += tint * tint_mix;
+	data *= tint_total_normalise;
+	#endif
+
 
 
 //#optreplace vec3 c = data; data = (${transform_expr});
