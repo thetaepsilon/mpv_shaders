@@ -376,6 +376,11 @@ src_fetch_main() {
 vec3 load(vec2 pix) {
 	vec2 pos = pix / SZ;
 	vec3 col = ${input}_tex(pos).rgb;
+EOF
+	if test -n "${input_transform:-}"; then {
+		echo "col = (${input_transform});";
+	}; fi;
+cat << EOF
 	return col;
 }
 
