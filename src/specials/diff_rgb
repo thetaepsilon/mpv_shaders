@@ -102,7 +102,7 @@ EOF
 src_loaded_main() {
 	cat << EOF
 
-vec4 loaded_main(int which, vec4 left, vec4 centre, vec4 right) {
+vec4 loaded_main(int which, vec3 left, vec3 centre, vec3 right) {
 	#define X(var) vec3 col_ ## var = max( var.rgb, vec3(0.0));
 	// this X-macro list is not reused yet, so just invoke it inline here.
 	X(left)
@@ -373,9 +373,10 @@ src_fetch_main() {
 #define SZ ${input}_size
 
 // rounding helpers defined here as this is only needed for the texture loading for the time being.
-vec4 load(vec2 pix) {
+vec3 load(vec2 pix) {
 	vec2 pos = pix / SZ;
-	return ${input}_tex(pos);
+	vec3 col = ${input}_tex(pos).rgb;
+	return col;
 }
 
 float nearest_pixel(float value) {
@@ -411,9 +412,9 @@ vec4 hook() {
 	vec2 op_src_centre = vec2(op_src_major_axis, op_current.t);
 	vec2 src_centre = from_op_axes(op_src_centre);
 
-	vec4 centre = load(src_centre);
-	vec4 left = load(src_centre + steps(-1.0));
-	vec4 right = load(src_centre + steps(1.0));
+	vec3 centre = load(src_centre);
+	vec3 left = load(src_centre + steps(-1.0));
+	vec3 right = load(src_centre + steps(1.0));
 
 	// additionally work out which "subpixel" we are currently located in.
 	float which_f = mod(op_current.s, 3.0);
