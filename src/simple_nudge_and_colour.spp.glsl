@@ -118,6 +118,7 @@ vec4 hook() {
 
 
 	#ifdef USE_MODULATION_LUT
+	#ifndef CUSTOM_MODULATE
 	vec3 mixer = modulate_lut[idx];
 
 	#ifndef MODULATE_BASE_COLOR
@@ -125,6 +126,14 @@ vec4 hook() {
 	#endif
 	const vec3 base = vec3(MODULATE_BASE_COLOR);
 	data = mix(base, data, mixer);
+
+	#else	// CUSTOM_MODULATE
+
+
+	data = modulate_hook(data, idx);
+
+
+	#endif	// CUSTOM_MODULATE
 
 	#endif
 
