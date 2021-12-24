@@ -1,4 +1,4 @@
-//!HOOK MAINPRESUB
+//!HOOK ${at}
 //!DESC mix two textures together
 //!BIND ${in1}
 //!BIND ${in2}
@@ -21,7 +21,7 @@ vec4 hook() {
 
 	COLLECT(${in1});
 	COLLECT(${in2});
-//#optreplace total.rgb = pow(total.rgb, vec3( 1. / vec3(${output_gamma}) ));
+
 	return total;
 }
 
