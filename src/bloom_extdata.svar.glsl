@@ -1,11 +1,14 @@
-//!HOOK ${at:MAINPRESUB}
-//!BIND HOOKED
-//!BIND ${blur:blurdata}
+//!HOOK ${at}
+//!BIND ${in}
+//!BIND ${blur}
+//!SAVE ${out:$in}
+//!WIDTH ${in}.w
+//!HEIGHT ${in}.h
 //!DESC bloom using additive blur data ("blur data not included!")
 
-#define TEXF HOOKED_tex
-#define POS HOOKED_pos
-#define BTEXF ${blur:blurdata}_tex
+#define TEXF ${in}_tex
+#define POS ${in}_pos
+#define BTEXF ${blur}_tex
 
 
 const float addm = ${am:1.};
