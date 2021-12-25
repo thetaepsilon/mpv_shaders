@@ -11,6 +11,19 @@
 #define BTEXF ${blur}_tex
 
 
+
+vec3 input_transform(vec3 data) {
+
+	return data;
+}
+
+vec3 bloom_transform(vec3 data) {
+
+	return data;
+}
+
+
+
 const float addm = ${am:1.};
 const float exposure = ${e:0.75};
 
@@ -18,6 +31,11 @@ vec4 hook() {
 	vec2 p = POS;
 	vec3 reference = TEXF(p).rgb;
 	vec3 data_bloom = BTEXF(p).rgb;
+
+	reference = input_transform(reference);
+	data_bloom = bloom_transform(data_bloom);
+
+
 	vec3 addend = data_bloom * addm;
 
 	//bool ab = fract(frame / 2.0) < 0.5;
