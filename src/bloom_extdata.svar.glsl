@@ -20,9 +20,6 @@ vec4 hook() {
 	vec3 data_bloom = BTEXF(p).rgb;
 	vec3 addend = data_bloom * addm;
 
-//#optreplace reference = pow(reference, vec3(${input_gamma}) );
-//#optreplace addend = pow(addend, vec3(${input_gamma}) );
-
 	//bool ab = fract(frame / 2.0) < 0.5;
 	vec3 result = (reference + addend);
 
@@ -33,7 +30,6 @@ vec4 hook() {
 	result = min(result, vec3(1.0));
 //#optreplace #endif	// ${disable_clamp}
 
-//#optreplace result.rgb = pow(result.rgb, vec3(1.0) / vec3(${output_gamma}) );
 	return vec4(result, 1.);
 }
 
