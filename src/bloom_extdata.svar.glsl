@@ -17,7 +17,8 @@ const float exposure = ${e:0.75};
 vec4 hook() {
 	vec2 p = POS;
 	vec3 reference = TEXF(p).rgb;
-	vec3 addend = BTEXF(p).rgb * addm;
+	vec3 data_bloom = BTEXF(p).rgb;
+	vec3 addend = data_bloom * addm;
 
 //#optreplace reference = pow(reference, vec3(${input_gamma}) );
 //#optreplace addend = pow(addend, vec3(${input_gamma}) );
