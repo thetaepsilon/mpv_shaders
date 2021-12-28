@@ -1,0 +1,11 @@
+const float min = 2048.;
+const float div = min + 1.0;
+
+vec3 c = data.rgb;
+c = max(c, 0.);
+c *= min / div;
+c += 1. / min;
+
+c = log2(c);
+
+return c;

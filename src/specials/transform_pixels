@@ -1,0 +1,66 @@
+#!/bin/sh
+set -Ceu;
+input="$1";
+
+err() {
+	echo '#' "$@" >&2;
+}
+fatal() {
+	err "[fatal]" "$@";
+	# code 2 used to distinguish from exits due to undefined variables.
+	exit 2;
+}
+
+chans="$(cat "${input}/components")";
+ret_t="undefined";
+pad="";
+case "$chans" in
+	1)	ret_t="float";	pad=", 1.0, 1.0, 1.0";;
+	2)	ret_t="vec2";	pad=", 1.0, 1.0";;
+	3)	ret_t="vec3";	pad=", 1.0";;
+	4)	ret_t="vec4";	pad="";;
+	*)	fatal "unsupported channel count" "$chans";;
+esac
+
+
+
+cat << EOF
+//!HOOK ${at}
+//!DESC 1:1 pixel transform pass
+//!BIND ${in}
+//!SAVE ${out:-$in}
+//!WIDTH ${in}.w
+//!HEIGHT ${in}.h
+//!COMPONENTS ${chans}
+
+${ret_t} f(vec4 data) {
+	// body indent warning
+EOF
+	cat "${input}/func"
+cat << EOF
+	// body indent warning end
+}
+
+vec4 hook() {
+	vec4 data = ${in}_tex(${in}_pos);
+	${ret_t} c;
+EOF
+
+
+	if test -n "${ab_expr:-}"; then {
+cat << EOF
+	bool cond = (${ab_expr});
+	if (cond) c = f(data);
+EOF
+	}; else {
+cat << EOF
+	c = f(data);
+EOF
+	}; fi;
+
+
+cat << EOF
+	return vec4(c ${pad});
+}
+EOF
+
