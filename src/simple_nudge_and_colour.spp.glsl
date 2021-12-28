@@ -99,6 +99,10 @@ vec4 hook() {
 	vec2 pos = srcpix / ${in}_size;
 	vec3 data = ${in}_tex(pos).rgb;
 
+	#ifdef CUSTOM_MODULATE
+	#define INPUT_DISABLE_GAMMA 1
+	#endif
+
 	#ifndef INPUT_DISABLE_CLAMP
 	data = max(data, vec3(0.));
 	// zero clamp is required to perform gamma safely.
