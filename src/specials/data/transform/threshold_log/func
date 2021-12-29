@@ -1,11 +1,21 @@
-const float min = 2048.;
-const float div = min + 1.0;
+const float N = 2048.;
 
 vec3 c = data.rgb;
 c = max(c, 0.);
-c *= min / div;
-c += 1. / min;
 
+// in maximum white case from input,
+// we still need the result to fit into 1.0 as well.
+// as we are about to add 1 / N parts light,
+// 1.0 from input therefore must become (N - 1) / N,
+// which will yield N / N = 1.0 maximum.
+c *= (N - 1.) / N;
+c += 1. / N;
+
+// as our minimum value is now 1. / N we can be sure we don't get infinities here.
 c = log2(c);
+
+// XXX: optional scaling of the co-domain
+// (which would be 0 down to -log2(N), assuming input is 1.0 maximum)
+// into 0.0 - 1.0 to survive non-float target buffers?
 
 return c;
