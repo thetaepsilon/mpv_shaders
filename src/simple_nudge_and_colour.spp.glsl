@@ -89,11 +89,11 @@ vec4 hook() {
 	vec2 pos = srcpix / ${in}_size;
 	vec3 data = ${in}_tex(pos).rgb;
 
-	#ifndef INPUT_DISABLE_CLAMP
+
+
+	#ifndef MODULATE_DISABLE_CLAMP
 	data = max(data, vec3(0.));
-	#endif	// INPUT_DISABLE_CLAMP
-
-
+	#endif	// MODULATE_DISABLE_CLAMP
 
 	#ifdef USE_MODULATION_LUT
 	#ifndef CUSTOM_MODULATE
