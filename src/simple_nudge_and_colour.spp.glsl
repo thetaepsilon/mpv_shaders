@@ -107,7 +107,6 @@ vec4 hook() {
 	data = max(data, vec3(0.));
 	// zero clamp is required to perform gamma safely.
 	#ifndef INPUT_DISABLE_GAMMA
-	data = input_gamma(data);
 	#endif	// INPUT_DISABLE_GAMMA
 	#endif	// INPUT_DISABLE_CLAMP
 
@@ -160,7 +159,6 @@ vec4 hook() {
 
 //#optreplace vec3 c = data; data = (${transform_expr});
 
-//#optreplace data = pow(data, vec3(1.) / vec3(${output_gamma}));
 	return vec4(data, 1.);
 }
 
