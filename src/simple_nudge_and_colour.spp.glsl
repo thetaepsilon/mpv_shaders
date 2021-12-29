@@ -27,7 +27,6 @@ float hmax(vec3 v) {
 
 
 
-//#include? edgedetect
 
 
 
@@ -93,20 +92,6 @@ vec4 hook() {
 	#ifndef INPUT_DISABLE_CLAMP
 	data = max(data, vec3(0.));
 	#endif	// INPUT_DISABLE_CLAMP
-
-
-
-	// optional edge detection ish mode:
-	// the original location is sampled,
-	// and a function is given both the original and the lerped pixel value.
-	// for this to work the "edgedetect" optional spp include above must be loaded,
-	// and it must define USE_EDGEDETECT_FUNCTION as well as the below named function.
-	#ifdef USE_EDGEDETECT_FUNCTION
-	vec3 origin_data = ${in}_tex(nearest_pix / ${in}_size).rgb;
-	origin_data = input_gamma(origin_data);
-	vec3 edgedetected = edgedetect(origin_data, data);
-	data = bool(${edgedetect_ab_expr:true}) ? edgedetected : data;
-	#endif
 
 
 
