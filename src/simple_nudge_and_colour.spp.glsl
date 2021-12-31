@@ -89,6 +89,11 @@ vec4 hook() {
 	vec2 pos = srcpix / ${in}_size;
 	vec3 data = ${in}_tex(pos).rgb;
 
+//#optreplace #if ${input_transform_clamp:1}	// ${input_transform}
+//#optreplace data = max(data, vec3(0.));	// ${input_transform}
+//#optreplace #endif				// ${input_transform}
+//#optreplace data = vec3(${input_transform});
+
 
 
 	#ifndef MODULATE_DISABLE_CLAMP
