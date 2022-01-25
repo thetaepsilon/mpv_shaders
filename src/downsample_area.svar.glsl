@@ -2,8 +2,8 @@
 //!DESC downsampling pass: total area average, ${x}x${y:$x}
 //!BIND ${in}
 //!SAVE ${out:$in}
-//!WIDTH HOOKED.w ${x} /
-//!HEIGHT HOOKED.h ${y:$x} /
+//!WIDTH ${in}.w ${x} /
+//!HEIGHT ${in}.h ${y:$x} /
 //!COMPONENTS 3
 
 #define MAP_X ${x}
