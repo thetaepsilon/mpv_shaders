@@ -7,6 +7,11 @@ out="${out:-$in}"
 
 expr="${expr}";
 
+if test -n "${expr_extradata:-}"; then {
+	exec 3<"${expr_extradata}";
+}; fi
+
+
 cat << EOF
 //!HOOK ${at}
 //!DESC selective discard expression: ${expr}
@@ -14,6 +19,14 @@ cat << EOF
 //!SAVE ${out}
 //!WIDTH ${in}.w
 //!HEIGHT ${in}.h
+
+EOF
+
+if test -n "${expr_extradata:-}"; then {
+	cat 0<&3;
+}; fi;
+
+cat << EOF
 
 vec4 hook() {
 	// variables available to use in expression
