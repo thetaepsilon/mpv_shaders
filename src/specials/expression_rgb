@@ -22,7 +22,6 @@ cat << EOF
 //!SAVE ${out}
 //!WIDTH ${in}.w
 //!HEIGHT ${in}.h
-//!COMPONENTS 3
 
 
 
