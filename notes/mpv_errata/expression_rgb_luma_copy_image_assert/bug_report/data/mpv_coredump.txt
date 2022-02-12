@@ -1,0 +1,387 @@
+Feb 12 14:54:23 leafblade systemd-coredump[208486]: Process 208465 (mpv) of user 1001 dumped core.
+                                                    
+                                                    Module linux-vdso.so.1 with build-id e938c32a922c9e53cdae6451064e9c70c778ea77
+                                                    Module libXcursor.so.1 with build-id eb6315bcd7526aaf51b0a1307efdc587cea0a152
+                                                    Module libnss_files.so.2 with build-id 1a36dfc01d3a1010b2ee79766a24a8090a3266d5
+                                                    Module libncursesw.so.6 with build-id 1f873ddb2c32ab39d0b7d8646d03680ffe99de7c
+                                                    Module libedit.so.0 with build-id 4b0babfcad161c2ad0af6e59e2493258db23a331
+                                                    Module libdrm_nouveau.so.2 with build-id ee16fa6a4d0bd08f5448cfc046ccb76b49aaa8a3
+                                                    Module libdrm_amdgpu.so.1 with build-id 30d019987d514b23115b47d6b47c1e45c18fdbaf
+                                                    Module libelf.so.1 with build-id 0eee16e5e39ae4c5016f31b2abb6c92f0804ae47
+                                                    Module libdrm_radeon.so.1 with build-id 5d1615e0467d0a34a5a82cbd4ebc84851e116307
+                                                    Module libsensors.so.5 with build-id dc8b2c1c0d8525411aca188ea3cc3fb86d381d30
+                                                    Module libLLVM-13.so with build-id 62bb83aeee3a955305312248a401be2cf62a0ea8
+                                                    Module iris_dri.so with build-id 10a9eafed46383cccd7c3dc76676aa5fdd37f3e5
+                                                    Module libxshmfence.so.1 with build-id 8876d9ccf620858795724ca24b9e567585a77cec
+                                                    Module libxcb-sync.so.1 with build-id dda14591103b01b1311906053bf1ca9e82ade35c
+                                                    Module libxcb-present.so.0 with build-id 68f5465258750e2397b1333b3ffc01ee33caa4e1
+                                                    Module libxcb-dri3.so.0 with build-id 9407a2480e09dc5a1dd9d9a0652fa8d32b328c91
+                                                    Module libxcb-dri2.so.0 with build-id 2dd6e65129a809dab828a1d26215a3f7a363fcc8
+                                                    Module libX11-xcb.so.1 with build-id 0db4f94d8ae31b8dc9a83f825a9171656f1e532c
+                                                    Module libglapi.so.0 with build-id 9331aed5060062bcfafd463d36506312fab59549
+                                                    Module libEGL_mesa.so.0 with build-id 87783c9234dbd9030a4c7c71387b75ab04c03ed9
+                                                    Module libspa-journal.so with build-id a8660deb23948ec6e4114004ecd2cc15da111803
+                                                    Module libspa-support.so with build-id 0dec66ae447a7d8585776f234dd1c97352e57108
+                                                    Module libgpg-error.so.0 with build-id 82524ee3d1c4c2244d7cfdcc1e6eea5f9855f6c6
+                                                    Module libdatrie.so.1 with build-id 6fe3b6ece2c8e7d11869fa051375128d8f808f58
+                                                    Module libblkid.so.1 with build-id 16cc0887733296cbf17ddbac780435e8a9071246
+                                                    Module libgcrypt.so.20 with build-id db45f5d5e0f7af1e77324fea1885f974619ad268
+                                                    Module libcap.so.2 with build-id eb6dae97527fc89dbb0d5bb581a15acd02ae9f56
+                                                    Module libFLAC.so.8 with build-id e568dc3d434723c72d6d302eb0b2559f27e91faa
+                                                    Module libbrotlicommon.so.1 with build-id a4ba3f4b4571c8272343b621da812a6e24a202a7
+                                                    Module libicudata.so.70 with build-id e1dcc2a88cfaafed882d09c90c668af0eed4efed
+                                                    Module libthai.so.0 with build-id a7ac5010b4275c49308021200d23690533952702
+                                                    Module libpangoft2-1.0.so.0 with build-id 9b0353693557b4fb68124a9dffac9b07678d86a1
+                                                    Module libresolv.so.2 with build-id c915c72668282861a813f7ea3c0780f37b681dc0
+                                                    Module libmount.so.1 with build-id 03ade3c7be7f082dc9275212a30771131625fee7
+                                                    Module libtiff.so.5 with build-id e8d89a0fb0847641ddb75c5f03fa89d68155a75d
+                                                    Module libgmodule-2.0.so.0 with build-id 5da4523e8d6b5c244a0193e27093d1e61f6ac9e4
+                                                    Module libasyncns.so.0 with build-id 6acff139d56b5139ce5eb50a66c62b215e1d332d
+                                                    Module libsystemd.so.0 with build-id a83a62063b8098eda274d25251d619f0503bf011
+                                                    Module libsndfile.so.1 with build-id 72d5531e74ed3e9afe49e95e449c40cb8984a258
+                                                    Module libv4lconvert.so.0 with build-id 03b32ce30f7435db5c9c6e05bbe57152cc4f798f
+                                                    Module libXdmcp.so.6 with build-id 8ca0792d23c8b8b4c0864297512349292bea5955
+                                                    Module libXau.so.6 with build-id 1c67764663e07bec24d8951e5fd93f4d165979ff
+                                                    Module libgraphite2.so.3 with build-id 47761dc11e553f519cde97ed9ee985be12ccdae2
+                                                    Module libbrotlidec.so.1 with build-id 45defc036e918e0140a72f1fbce6e7692d38241d
+                                                    Module libgomp.so.1 with build-id 144b2725c3c7bcd7999b6a248b02c301af8a9fa2
+                                                    Module libhogweed.so.6 with build-id 2d70cff7b1841b4d9ca4e8e7726cd4b944c07fdc
+                                                    Module libnettle.so.8 with build-id 9a878e513c02007598fcf1e2e286c2203f13536e
+                                                    Module libtasn1.so.6 with build-id ee3429ca5e94718aea4fe5249fc859e0cd88e4e9
+                                                    Module libunistring.so.2 with build-id 015ac6d6bcb60b7d8bea31a80d1941b06e8636ab
+                                                    Module libidn2.so.0 with build-id 1ce2b50ad9f9821c2c629b521cf5a3c99593d332
+                                                    Module libp11-kit.so.0 with build-id cc372ea3c28c4d3dfc633b4d2e933c8584d2af16
+                                                    Module libicuuc.so.70 with build-id 2e245c2bf12f95fd8ab79b3a4be99524677cbd70
+                                                    Module libmvec.so.1 with build-id 9aa05e22565568b778a97933527b3c64bdb8418b
+                                                    Module libogg.so.0 with build-id ca0cae30a809f10db1f16e54a23b4e5ff7b2c54c
+                                                    Module libpixman-1.so.0 with build-id 341f793dcada3a48a306a793d265a517e3f2e7d6
+                                                    Module libxcb-render.so.0 with build-id a37bdb37744b508be9dd29fd9ccb9bb0170d43e5
+                                                    Module libpng16.so.16 with build-id 2dc0bce07f199bf983c07a05fb95a6f4af83a9b3
+                                                    Module libpcre.so.1 with build-id 845483dd0acba86de9f0313102bebbaf3ce52767
+                                                    Module libpango-1.0.so.0 with build-id f7a7e74f7ade4cbcf3840f685d760da19b0dc38c
+                                                    Module libpangocairo-1.0.so.0 with build-id a47bf17ab99c1840764fca52a2d772800d81d6e1
+                                                    Module libgio-2.0.so.0 with build-id e04146bb599deb6eb15744fc2e95e5f538952d56
+                                                    Module libgdk_pixbuf-2.0.so.0 with build-id ca4beb15a30de8d8767f7bca8222038c61b58b36
+                                                    Module libcairo-gobject.so.2 with build-id abbf5a8a182ea1b8b7d68540df5c2e25c0bdae0c
+                                                    Module libXrender.so.1 with build-id 97e0b9ab6ba96ebc86527cc2b3c3078aad8616b3
+                                                    Module libXfixes.so.3 with build-id 0a05c7e8714522bfbdd7c0027c3e2a94965664b0
+                                                    Module libdbus-1.so.3 with build-id 74f2ab9c60512f3a93c932c3f627564d42e0b11e
+                                                    Module libpulsecommon-15.0.so with build-id a2e110b7a0b3bb46e42515afd55a61d78185835b
+                                                    Module libgcc_s.so.1 with build-id 7f8508bb914546ada778809b64b99d234337d835
+                                                    Module libepoxy.so.0 with build-id b6357fc6b748c512f90339433d74502b9d0621dc
+                                                    Module libSPIRV.so with build-id 6d4d305b9bcb5c68852edf23242172bc29ecafed
+                                                    Module libglslang.so.11 with build-id b3665356008c75cc6393dfc2bc092fbc80606e74
+                                                    Module libunwind.so.8 with build-id e7f3b22127b00d8b14b2560df707cbbeb0134861
+                                                    Module libv4l2.so.0 with build-id 8282e026fe5464be21eef79803386692ed18b553
+                                                    Module libSDL2-2.0.so.0 with build-id e79663cb0c7fbea04b8cf4dd42f2a8ffe6d5ae56
+                                                    Module libxcb-xfixes.so.0 with build-id a6b197ace5b9b59f913f5969eb419a88d1194f47
+                                                    Module libxcb-shape.so.0 with build-id f1b3376c4534fab0469feb1cd19f022ff98df533
+                                                    Module libxcb-shm.so.0 with build-id fb797f299a446f559a95afcc168227482cc800d1
+                                                    Module libxcb.so.1 with build-id 0d1ef11740a5daad2ee331e812a51aa6574af222
+                                                    Module libiec61883.so.0 with build-id 20971bd842feb346e4302bb692a3e025e1e727d1
+                                                    Module librom1394.so.0 with build-id e7c3d000991c349bb30a535dfd8827c5e94e73f9
+                                                    Module libavc1394.so.0 with build-id 9fa9e8cb4ff94ae022a8a16fe53715cf547d36c1
+                                                    Module libraw1394.so.11 with build-id 82fa40f1c5acd576e84711cc03b62d13605cf248
+                                                    Module libharfbuzz.so.0 with build-id 8006a225ec61b8231d0b003aebab9920ac0b9179
+                                                    Module liblz4.so.1 with build-id e63600ab23b2f6997f42fac2fa56e1f02ce159a1
+                                                    Module libzstd.so.1 with build-id 72f3511cba7db578f6a2647925f35664da6c838b
+                                                    Module libacl.so.1 with build-id 27869ed0219ade5d2ffd50eaee11f967187faa8b
+                                                    Module libcrypto.so.1.1 with build-id 4c926b672d97886b123e03a008387aecf0786de4
+                                                    Module libpipewire-0.3.so.0 with build-id a9294fe09416a07d8b2d61e8d8424730a61f9f64
+                                                    Module libffi.so.8 with build-id f90d8b734f6de9b25faedb8cbfab7054dafc0a42
+                                                    Module libstdc++.so.6 with build-id 9b5eeeb149bf3c4efe787fb398b44f00507aec87
+                                                    Module libexpat.so.1 with build-id c3b8b6921f5b323540b84acd301ccc7bc5bc0428
+                                                    Module libwayland-server.so.0 with build-id 645526447334b85a6f4bf5a8b37737b27696365f
+                                                    Module libsoxr.so.0 with build-id 9e49936ed807c1e52705b88d5d71706fe11d9ed1
+                                                    Module libfreetype.so.6 with build-id 26c5f833068ff72660d1975cbc2074c3eb47fad8
+                                                    Module libfontconfig.so.1 with build-id 9fdeb38479c4090d673efc2e8cb60176efe65da1
+                                                    Module libvidstab.so.1.1 with build-id 8f75d19083cbc44f1cfda8fca285a23424dd2b2a
+                                                    Module libvmaf.so.0 with build-id a64af375cb31830ab85909ba6d31751818efad5c
+                                                    Module libfribidi.so.0 with build-id 79124bad061c2aab4ec89f25d067363d5b781114
+                                                    Module libpostproc.so.55 with build-id e239123489eb3ed04f410eadf72a0ce5c7f87c07
+                                                    Module libssh.so.4 with build-id 8490056688e60790230f9d990c439b181236e9b6
+                                                    Module libsrt.so.1.4 with build-id ad13eeb20e5ea3f04a0b089de1152ff89a9fa65c
+                                                    Module libgnutls.so.30 with build-id 50f3a52ba3db67b822fd5888790238eb548b64aa
+                                                    Module libgmp.so.10 with build-id e58d34ab389d1b649c24195c2d145e3ff2e58290
+                                                    Module libmodplug.so.1 with build-id b00dcb12e7d2d5882b4fa414295eba449875dae4
+                                                    Module libbz2.so.1.0 with build-id 919597c477c9b2cb9cdbb7745ed6494ac0e6da60
+                                                    Module libxml2.so.2 with build-id b710b880b0d4e9c93554fa632129db44c20632cd
+                                                    Module libxvidcore.so.4 with build-id 43bc390a7842a7ca3a0302e93442ea561d7f013a
+                                                    Module libx265.so.199 with build-id 22130b9b0d2aa957b148b0fdeb27e3fd04f0fb58
+                                                    Module libx264.so.163 with build-id 8f90efeb3197366ecf6574384b1adf9c8996157e
+                                                    Module libvorbisenc.so.2 with build-id 28ed815b8b1d322e6bf2bfdce4b0af2789b74335
+                                                    Module libvorbis.so.0 with build-id ad0a6c1af8f219b4e314090b6e8847223d424cbe
+                                                    Module libtheoradec.so.1 with build-id 19d321fd5455c7b7611ca9602a804b496124e06f
+                                                    Module libtheoraenc.so.1 with build-id cde750f0621140f313e4ef4e5f212e662f24a38b
+                                                    Module libSvtAv1Enc.so.0 with build-id 16a86797b9743608665ae8dffaebba7d492f7d05
+                                                    Module libspeex.so.1 with build-id 39721dbe21b62978562c2943279f6dffbffe8946
+                                                    Module librav1e.so.0 with build-id 2e9e70e2433e4d2955a870f2de730172729fbe4f
+                                                    Module libopus.so.0 with build-id 649d3ddab8764d7caf73648004a35cb13e23a5e1
+                                                    Module libopenjp2.so.7 with build-id 0a329c12468c33c92ecbc3968f4dc9c79cc5db96
+                                                    Module libopencore-amrnb.so.0 with build-id a3d78948c85fa235e66549119b2f130e69af7b70
+                                                    Module libmp3lame.so.0 with build-id 48c901805551a3dd58d02502c4cd67f6aa848107
+                                                    Module libgsm.so.1 with build-id 1cc6240f7eaedaaac302bc7c0f64ebbeae596f22
+                                                    Module libaom.so.3 with build-id 17c2d78932dffd790b290358a144c2b0ef5ddd17
+                                                    Module libcairo.so.2 with build-id 06820af9cf79c2deb207d9533a61caf04e67a8ad
+                                                    Module libglib-2.0.so.0 with build-id bd949a4794ad959019499c6afcb8f416dcff9810
+                                                    Module libgobject-2.0.so.0 with build-id e67b3a29cecdd98c3d8bd6eb7524a812331b20a2
+                                                    Module librsvg-2.so.2 with build-id 6b6b837ebec63485c2e1b826260885f065d22683
+                                                    Module libopencore-amrwb.so.0 with build-id 28da8ed3dfca59280e835c46bd40da295dae99e2
+                                                    Module libdav1d.so.5 with build-id 82862181dbe48302fde94240f68e17fb6f9a03c7
+                                                    Module liblzma.so.5 with build-id 8b615460aa230708c5183f16bede67aa0437d95e
+                                                    Module libwebp.so.7 with build-id 0add7a572705244ed810b7e722cce7da0dcfb62c
+                                                    Module libwebpmux.so.3 with build-id 4232d5263a45719ba12f58ed7d8cae3a0fc887de
+                                                    Module libvpx.so.7 with build-id 0dce08d8df560a9817a17291a53f905fd7d17c62
+                                                    Module libmfx.so.1 with build-id 8281ba744d2215511b252db50250f1d4e073d36d
+                                                    Module libGLdispatch.so.0 with build-id 501765b3a78d668860fa54229b18107473aeda4c
+                                                    Module ld-linux-x86-64.so.2 with build-id 040cc3dd10461562f177df39e3be2f3704258c3c
+                                                    Module libc.so.6 with build-id 4b406737057708c0e4c642345a703c47a61c73dc
+                                                    Module libz.so.1 with build-id 0c1459c56513efd5d53eb3868290e9afee6a6a26
+                                                    Module libzimg.so.2 with build-id 25c3481f3b09acafae5fb2cc6adb7791148941d6
+                                                    Module libXv.so.1 with build-id 39e98148d1ce4f1c09ee966968ce6d6197f56ac2
+                                                    Module libXrandr.so.2 with build-id d4e869b5c72541e1de8f96b456248987ea52d51b
+                                                    Module libXinerama.so.1 with build-id dbb6adece34ea2766d3efcd628af8f9757344dd6
+                                                    Module libXext.so.6 with build-id d70f24beb4fad748d6becffdcc13e51be0a2ebfa
+                                                    Module libXss.so.1 with build-id baa7abf56d3c688475068639478b07b508149f7a
+                                                    Module libX11.so.6 with build-id 5ba5798d193c0065014b8c6252a0678671c8d478
+                                                    Module libxkbcommon.so.0 with build-id 3a9338b2085f0af41217bc0a90ffcc941938a16e
+                                                    Module libwayland-cursor.so.0 with build-id 79d7e67af210407c2afe92ba8c189c8648a6474c
+                                                    Module libvulkan.so.1 with build-id 40c7a455d37803dbd362377df831a77142acb66b
+                                                    Module libvdpau.so.1 with build-id 96ac4ef0ce4b2bdbe091782d97eafadd6e4cea90
+                                                    Module libva-x11.so.2 with build-id e6a0ffef32570ba034a3724e735ba0fa90d39eee
+                                                    Module libva-wayland.so.2 with build-id bf918dc20bc0aa9eab4b4008d2d7e785fffea851
+                                                    Module libva-drm.so.2 with build-id 5ac46263a883c725bfed65d98ff2e3162fd464ad
+                                                    Module libva.so.2 with build-id d0042003bbdf0c10b26dbc25c80cb06eb64b4f5c
+                                                    Module libuchardet.so.0 with build-id 07aff1c8812f1c41c254b4eac06669daa8995f43
+                                                    Module libshaderc_shared.so.1 with build-id bec1c7d7605a492a3aaf311badf2446478bea4ae
+                                                    Module libsamplerate.so.0 with build-id e7eba744904f8220874bf5883c90c15b887e4deb
+                                                    Module libfftw3.so.3 with build-id 5d2df7d00e89133c944ec88377955deb732c246a
+                                                    Module librubberband.so.2 with build-id 467823c236b75698cd4d3f1962693b9eb0dc097f
+                                                    Module libpulse.so.0 with build-id 10bd0ce0cfbb9405cee189faa1830cf34cab61a8
+                                                    Module libluajit-5.1.so.2 with build-id c26512148bf80a0892a4ed85af26325ead3e62b8
+                                                    Module librt.so.1 with build-id 75484da2d6f1515189eefa076e0a40328834cd16
+                                                    Module libplacebo.so.192 with build-id 3f575859b7249747ec11bc56d986644f7423e99d
+                                                    Module libdl.so.2 with build-id 5abc547e7b0949f89f3c0e21ab0c8331a7440a8a
+                                                    Module libbluray.so.2 with build-id ebaa74ef4d549c1d3f01fafb8625045d286b8940
+                                                    Module libavdevice.so.58 with build-id 6f804a64ebd606e31ab7d92d2ba997d20b71dfea
+                                                    Module libass.so.9 with build-id c3d3ce271a32a7749234134657aef9a1ab51690b
+                                                    Module libarchive.so.13 with build-id 985731a3b1f779e47cfa73d88ad8f36e561d6ec6
+                                                    Module liblcms2.so.2 with build-id c01e5649a38dbf37768d02dc751b52de0dcbd141
+                                                    Module libjpeg.so.8 with build-id 879ca18a2f58c25d77ba881db3a44a5676ef6c7d
+                                                    Module libmujs.so with build-id 59e3e45d72fa0360f8d6401eb2913135171dc862
+                                                    Module libjack.so.0 with build-id 8410fef5b7799e9a4821ebc260eaad180d003f3d
+                                                    Module libwayland-client.so.0 with build-id 0a237f2fd096bada4ca381eec5d64474c4078be4
+                                                    Module libwayland-egl.so.1 with build-id 791e39283cdcc5a08cfd091b8cd4c59869a11278
+                                                    Module libgbm.so.1 with build-id 5bc03a95f0b36fc100f1d7ca664ebacda793d4c1
+                                                    Module libswresample.so.3 with build-id e46062e25d0903796dc55ca3c82c188d7887b433
+                                                    Module libavfilter.so.7 with build-id 4d8c68434abb45cd6e32f3b71458cd17647c6d3f
+                                                    Module libswscale.so.5 with build-id bb3be17fd6e24f9dc4eecc60ab771b4d16f887ee
+                                                    Module libavformat.so.58 with build-id 8b172cc1d947afa363cf842c83a281bf17510644
+                                                    Module libavcodec.so.58 with build-id ee7f4c1bebe06325cb15545d9c748bd94473112d
+                                                    Module libavutil.so.56 with build-id 4349b10cc6d45ef37bbb95bf73f936e885b4456a
+                                                    Module libEGL.so.1 with build-id 686c2e4036c01a3a72349ed0dd04f7c434af14ce
+                                                    Module libdvdread.so.8 with build-id a0f59a9428a5a54d829002ba233a31d04d05b566
+                                                    Module libpthread.so.0 with build-id 07c8f95b4f3251d08550217ad8a1f31066229996
+                                                    Module libdvdnav.so.4 with build-id 8deebb4d619b640d2f6884f7e93bde88b78ea7f9
+                                                    Module libdrm.so.2 with build-id 457a1a1bd25f1d5541a10d3f16c5dc1440d77c7d
+                                                    Module libm.so.6 with build-id 2b8fd1f869ecab4e0b55e92f2f151897f6818acf
+                                                    Module libcdio.so.19 with build-id b378a41a8f3f007797133df4ed03790f3de12e3d
+                                                    Module libcdio_cdda.so.2 with build-id 0df8d5e677509a15d63574927e126483fbe418e0
+                                                    Module libcdio_paranoia.so.2 with build-id c098ca2399ac750022db5457ba1ab5acf14e8bcb
+                                                    Module libasound.so.2 with build-id b17fc1317a484842433c772360376623b64ec3d8
+                                                    Module mpv with build-id 2c3a594c5630e0d1f37639ef7dc3a0fef28ead11
+                                                    Stack trace of thread 208476:
+                                                    #0  0x00007f7ea42f1d22 raise (libc.so.6 + 0x3cd22)
+                                                    #1  0x00007f7ea42db862 abort (libc.so.6 + 0x26862)
+                                                    #2  0x00007f7ea42db747 __assert_fail_base.cold (libc.so.6 + 0x26747)
+                                                    #3  0x00007f7ea42ea616 __assert_fail (libc.so.6 + 0x35616)
+                                                    #4  0x0000559996e97317 n/a (mpv + 0x113317)
+                                                    #5  0x0000559996e9818b n/a (mpv + 0x11418b)
+                                                    #6  0x0000559996ea26e8 n/a (mpv + 0x11e6e8)
+                                                    #7  0x0000559996ea4162 n/a (mpv + 0x120162)
+                                                    #8  0x0000559996eb4159 n/a (mpv + 0x130159)
+                                                    #9  0x0000559996eb7af2 n/a (mpv + 0x133af2)
+                                                    #10 0x00007f7ea6faa259 start_thread (libpthread.so.0 + 0x9259)
+                                                    #11 0x00007f7ea43b35e3 __clone (libc.so.6 + 0xfe5e3)
+                                                    
+                                                    Stack trace of thread 208465:
+                                                    #0  0x00007f7ea6fb68ca __futex_abstimed_wait_common64 (libpthread.so.0 + 0x158ca)
+                                                    #1  0x00007f7ea6fb0270 pthread_cond_wait@@GLIBC_2.3.2 (libpthread.so.0 + 0xf270)
+                                                    #2  0x0000559996e689d4 n/a (mpv + 0xe49d4)
+                                                    #3  0x0000559996e531b3 n/a (mpv + 0xcf1b3)
+                                                    #4  0x0000559996e54ac4 n/a (mpv + 0xd0ac4)
+                                                    #5  0x0000559996dc5ffd n/a (mpv + 0x41ffd)
+                                                    #6  0x00007f7ea42dcb25 __libc_start_main (libc.so.6 + 0x27b25)
+                                                    #7  0x0000559996dc60be n/a (mpv + 0x420be)
+                                                    
+                                                    Stack trace of thread 208467:
+                                                    #0  0x00007f7ea6fb68ca __futex_abstimed_wait_common64 (libpthread.so.0 + 0x158ca)
+                                                    #1  0x00007f7ea6fb0270 pthread_cond_wait@@GLIBC_2.3.2 (libpthread.so.0 + 0xf270)
+                                                    #2  0x0000559996e14cc4 n/a (mpv + 0x90cc4)
+                                                    #3  0x0000559996e31c65 mpv_get_property (mpv + 0xadc65)
+                                                    #4  0x0000559996e56487 n/a (mpv + 0xd2487)
+                                                    #5  0x00007f7ea4c82f06 n/a (libluajit-5.1.so.2 + 0x9f06)
+                                                    #6  0x00007f7ea4c9588a lua_pcall (libluajit-5.1.so.2 + 0x1c88a)
+                                                    #7  0x0000559996e4ebd9 n/a (mpv + 0xcabd9)
+                                                    #8  0x00007f7ea4c82f06 n/a (libluajit-5.1.so.2 + 0x9f06)
+                                                    #9  0x0000559996e4c71b n/a (mpv + 0xc871b)
+                                                    #10 0x00007f7ea4c82f06 n/a (libluajit-5.1.so.2 + 0x9f06)
+                                                    #11 0x00007f7ea4c9588a lua_pcall (libluajit-5.1.so.2 + 0x1c88a)
+                                                    #12 0x0000559996e4cfa6 n/a (mpv + 0xc8fa6)
+                                                    #13 0x00007f7ea4c82f06 n/a (libluajit-5.1.so.2 + 0x9f06)
+                                                    #14 0x00007f7ea4c958e1 lua_cpcall (libluajit-5.1.so.2 + 0x1c8e1)
+                                                    #15 0x0000559996e4d210 n/a (mpv + 0xc9210)
+                                                    #16 0x0000559996e5749e n/a (mpv + 0xd349e)
+                                                    #17 0x0000559996e5752f n/a (mpv + 0xd352f)
+                                                    #18 0x00007f7ea6faa259 start_thread (libpthread.so.0 + 0x9259)
+                                                    #19 0x00007f7ea43b35e3 __clone (libc.so.6 + 0xfe5e3)
+                                                    
+                                                    Stack trace of thread 208468:
+                                                    #0  0x00007f7ea6fb68ca __futex_abstimed_wait_common64 (libpthread.so.0 + 0x158ca)
+                                                    #1  0x00007f7ea6fb0574 pthread_cond_timedwait@@GLIBC_2.3.2 (libpthread.so.0 + 0xf574)
+                                                    #2  0x0000559996e2aa6c n/a (mpv + 0xa6a6c)
+                                                    #3  0x0000559996e311c4 mpv_wait_event (mpv + 0xad1c4)
+                                                    #4  0x0000559996e55a4f n/a (mpv + 0xd1a4f)
+                                                    #5  0x00007f7ea4c82f06 n/a (libluajit-5.1.so.2 + 0x9f06)
+                                                    #6  0x00007f7ea4c9588a lua_pcall (libluajit-5.1.so.2 + 0x1c88a)
+                                                    #7  0x0000559996e4ebd9 n/a (mpv + 0xcabd9)
+                                                    #8  0x00007f7ea4c82f06 n/a (libluajit-5.1.so.2 + 0x9f06)
+                                                    #9  0x0000559996e4c71b n/a (mpv + 0xc871b)
+                                                    #10 0x00007f7ea4c82f06 n/a (libluajit-5.1.so.2 + 0x9f06)
+                                                    #11 0x00007f7ea4c9588a lua_pcall (libluajit-5.1.so.2 + 0x1c88a)
+                                                    #12 0x0000559996e4cfa6 n/a (mpv + 0xc8fa6)
+                                                    #13 0x00007f7ea4c82f06 n/a (libluajit-5.1.so.2 + 0x9f06)
+                                                    #14 0x00007f7ea4c958e1 lua_cpcall (libluajit-5.1.so.2 + 0x1c8e1)
+                                                    #15 0x0000559996e4d210 n/a (mpv + 0xc9210)
+                                                    #16 0x0000559996e5749e n/a (mpv + 0xd349e)
+                                                    #17 0x0000559996e5752f n/a (mpv + 0xd352f)
+                                                    #18 0x00007f7ea6faa259 start_thread (libpthread.so.0 + 0x9259)
+                                                    #19 0x00007f7ea43b35e3 __clone (libc.so.6 + 0xfe5e3)
+                                                    
+                                                    Stack trace of thread 208469:
+                                                    #0  0x00007f7ea6fb68ca __futex_abstimed_wait_common64 (libpthread.so.0 + 0x158ca)
+                                                    #1  0x00007f7ea6fb0574 pthread_cond_timedwait@@GLIBC_2.3.2 (libpthread.so.0 + 0xf574)
+                                                    #2  0x0000559996e2aa6c n/a (mpv + 0xa6a6c)
+                                                    #3  0x0000559996e311c4 mpv_wait_event (mpv + 0xad1c4)
+                                                    #4  0x0000559996e55a4f n/a (mpv + 0xd1a4f)
+                                                    #5  0x00007f7ea4c82f06 n/a (libluajit-5.1.so.2 + 0x9f06)
+                                                    #6  0x00007f7ea4c9588a lua_pcall (libluajit-5.1.so.2 + 0x1c88a)
+                                                    #7  0x0000559996e4ebd9 n/a (mpv + 0xcabd9)
+                                                    #8  0x00007f7ea4c82f06 n/a (libluajit-5.1.so.2 + 0x9f06)
+                                                    #9  0x0000559996e4c71b n/a (mpv + 0xc871b)
+                                                    #10 0x00007f7ea4c82f06 n/a (libluajit-5.1.so.2 + 0x9f06)
+                                                    #11 0x00007f7ea4c9588a lua_pcall (libluajit-5.1.so.2 + 0x1c88a)
+                                                    #12 0x0000559996e4cfa6 n/a (mpv + 0xc8fa6)
+                                                    #13 0x00007f7ea4c82f06 n/a (libluajit-5.1.so.2 + 0x9f06)
+                                                    #14 0x00007f7ea4c958e1 lua_cpcall (libluajit-5.1.so.2 + 0x1c8e1)
+                                                    #15 0x0000559996e4d210 n/a (mpv + 0xc9210)
+                                                    #16 0x0000559996e5749e n/a (mpv + 0xd349e)
+                                                    #17 0x0000559996e5752f n/a (mpv + 0xd352f)
+                                                    #18 0x00007f7ea6faa259 start_thread (libpthread.so.0 + 0x9259)
+                                                    #19 0x00007f7ea43b35e3 __clone (libc.so.6 + 0xfe5e3)
+                                                    
+                                                    Stack trace of thread 208470:
+                                                    #0  0x00007f7ea6fb68ca __futex_abstimed_wait_common64 (libpthread.so.0 + 0x158ca)
+                                                    #1  0x00007f7ea6fb0574 pthread_cond_timedwait@@GLIBC_2.3.2 (libpthread.so.0 + 0xf574)
+                                                    #2  0x0000559996e2aa6c n/a (mpv + 0xa6a6c)
+                                                    #3  0x0000559996e311c4 mpv_wait_event (mpv + 0xad1c4)
+                                                    #4  0x0000559996e55a4f n/a (mpv + 0xd1a4f)
+                                                    #5  0x00007f7ea4c82f06 n/a (libluajit-5.1.so.2 + 0x9f06)
+                                                    #6  0x00007f7ea4c9588a lua_pcall (libluajit-5.1.so.2 + 0x1c88a)
+                                                    #7  0x0000559996e4ebd9 n/a (mpv + 0xcabd9)
+                                                    #8  0x00007f7ea4c82f06 n/a (libluajit-5.1.so.2 + 0x9f06)
+                                                    #9  0x0000559996e4c71b n/a (mpv + 0xc871b)
+                                                    #10 0x00007f7ea4c82f06 n/a (libluajit-5.1.so.2 + 0x9f06)
+                                                    #11 0x00007f7ea4c9588a lua_pcall (libluajit-5.1.so.2 + 0x1c88a)
+                                                    #12 0x0000559996e4cfa6 n/a (mpv + 0xc8fa6)
+                                                    #13 0x00007f7ea4c82f06 n/a (libluajit-5.1.so.2 + 0x9f06)
+                                                    #14 0x00007f7ea4c958e1 lua_cpcall (libluajit-5.1.so.2 + 0x1c8e1)
+                                                    #15 0x0000559996e4d210 n/a (mpv + 0xc9210)
+                                                    #16 0x0000559996e5749e n/a (mpv + 0xd349e)
+                                                    #17 0x0000559996e5752f n/a (mpv + 0xd352f)
+                                                    #18 0x00007f7ea6faa259 start_thread (libpthread.so.0 + 0x9259)
+                                                    #19 0x00007f7ea43b35e3 __clone (libc.so.6 + 0xfe5e3)
+                                                    
+                                                    Stack trace of thread 208473:
+                                                    #0  0x00007f7ea6fb68ca __futex_abstimed_wait_common64 (libpthread.so.0 + 0x158ca)
+                                                    #1  0x00007f7ea6fb0574 pthread_cond_timedwait@@GLIBC_2.3.2 (libpthread.so.0 + 0xf574)
+                                                    #2  0x0000559996de9a81 n/a (mpv + 0x65a81)
+                                                    #3  0x00007f7ea6faa259 start_thread (libpthread.so.0 + 0x9259)
+                                                    #4  0x00007f7ea43b35e3 __clone (libc.so.6 + 0xfe5e3)
+                                                    
+                                                    Stack trace of thread 208474:
+                                                    #0  0x00007f7ea6fb68ca __futex_abstimed_wait_common64 (libpthread.so.0 + 0x158ca)
+                                                    #1  0x00007f7ea6fb0270 pthread_cond_wait@@GLIBC_2.3.2 (libpthread.so.0 + 0xf270)
+                                                    #2  0x0000559996e185c9 n/a (mpv + 0x945c9)
+                                                    #3  0x00007f7ea6faa259 start_thread (libpthread.so.0 + 0x9259)
+                                                    #4  0x00007f7ea43b35e3 __clone (libc.so.6 + 0xfe5e3)
+                                                    
+                                                    Stack trace of thread 208481:
+                                                    #0  0x00007f7ea6fb68ca __futex_abstimed_wait_common64 (libpthread.so.0 + 0x158ca)
+                                                    #1  0x00007f7ea6fb0270 pthread_cond_wait@@GLIBC_2.3.2 (libpthread.so.0 + 0xf270)
+                                                    #2  0x00007f7ea5ea8a8d n/a (libavcodec.so.58 + 0x620a8d)
+                                                    #3  0x00007f7ea6faa259 start_thread (libpthread.so.0 + 0x9259)
+                                                    #4  0x00007f7ea43b35e3 __clone (libc.so.6 + 0xfe5e3)
+                                                    
+                                                    Stack trace of thread 208483:
+                                                    #0  0x00007f7ea43a8b2f __poll (libc.so.6 + 0xf3b2f)
+                                                    #1  0x00007f7ea4c57ae4 n/a (libpulse.so.0 + 0x33ae4)
+                                                    #2  0x00007f7ea4c414b9 pa_mainloop_poll (libpulse.so.0 + 0x1d4b9)
+                                                    #3  0x00007f7ea4c4b709 pa_mainloop_iterate (libpulse.so.0 + 0x27709)
+                                                    #4  0x00007f7ea4c4b7c1 pa_mainloop_run (libpulse.so.0 + 0x277c1)
+                                                    #5  0x00007f7ea4c5bc9e n/a (libpulse.so.0 + 0x37c9e)
+                                                    #6  0x00007f7e96174403 n/a (libpulsecommon-15.0.so + 0x5c403)
+                                                    #7  0x00007f7ea6faa259 start_thread (libpthread.so.0 + 0x9259)
+                                                    #8  0x00007f7ea43b35e3 __clone (libc.so.6 + 0xfe5e3)
+                                                    
+                                                    Stack trace of thread 208484:
+                                                    #0  0x00007f7ea6fb68ca __futex_abstimed_wait_common64 (libpthread.so.0 + 0x158ca)
+                                                    #1  0x00007f7ea6fb0574 pthread_cond_timedwait@@GLIBC_2.3.2 (libpthread.so.0 + 0xf574)
+                                                    #2  0x0000559996dd99b1 n/a (mpv + 0x559b1)
+                                                    #3  0x00007f7ea6faa259 start_thread (libpthread.so.0 + 0x9259)
+                                                    #4  0x00007f7ea43b35e3 __clone (libc.so.6 + 0xfe5e3)
+                                                    
+                                                    Stack trace of thread 208466:
+                                                    #0  0x00007f7ea43a8b2f __poll (libc.so.6 + 0xf3b2f)
+                                                    #1  0x0000559996ed0d57 n/a (mpv + 0x14cd57)
+                                                    #2  0x00007f7ea6faa259 start_thread (libpthread.so.0 + 0x9259)
+                                                    #3  0x00007f7ea43b35e3 __clone (libc.so.6 + 0xfe5e3)
+                                                    
+                                                    Stack trace of thread 208477:
+                                                    #0  0x00007f7ea6fb68ca __futex_abstimed_wait_common64 (libpthread.so.0 + 0x158ca)
+                                                    #1  0x00007f7ea6fb0270 pthread_cond_wait@@GLIBC_2.3.2 (libpthread.so.0 + 0xf270)
+                                                    #2  0x00007f7e80752dfc n/a (iris_dri.so + 0x1dbdfc)
+                                                    #3  0x00007f7e8074baac n/a (iris_dri.so + 0x1d4aac)
+                                                    #4  0x00007f7ea6faa259 start_thread (libpthread.so.0 + 0x9259)
+                                                    #5  0x00007f7ea43b35e3 __clone (libc.so.6 + 0xfe5e3)
+                                                    
+                                                    Stack trace of thread 208478:
+                                                    #0  0x00007f7ea6fb68ca __futex_abstimed_wait_common64 (libpthread.so.0 + 0x158ca)
+                                                    #1  0x00007f7ea6fb0270 pthread_cond_wait@@GLIBC_2.3.2 (libpthread.so.0 + 0xf270)
+                                                    #2  0x00007f7e80752dfc n/a (iris_dri.so + 0x1dbdfc)
+                                                    #3  0x00007f7e8074baac n/a (iris_dri.so + 0x1d4aac)
+                                                    #4  0x00007f7ea6faa259 start_thread (libpthread.so.0 + 0x9259)
+                                                    #5  0x00007f7ea43b35e3 __clone (libc.so.6 + 0xfe5e3)
+                                                    
+                                                    Stack trace of thread 208479:
+                                                    #0  0x00007f7ea6fb68ca __futex_abstimed_wait_common64 (libpthread.so.0 + 0x158ca)
+                                                    #1  0x00007f7ea6fb0270 pthread_cond_wait@@GLIBC_2.3.2 (libpthread.so.0 + 0xf270)
+                                                    #2  0x00007f7e80752dfc n/a (iris_dri.so + 0x1dbdfc)
+                                                    #3  0x00007f7e8074baac n/a (iris_dri.so + 0x1d4aac)
+                                                    #4  0x00007f7ea6faa259 start_thread (libpthread.so.0 + 0x9259)
+                                                    #5  0x00007f7ea43b35e3 __clone (libc.so.6 + 0xfe5e3)
+                                                    
+                                                    Stack trace of thread 208480:
+                                                    #0  0x00007f7ea6fb68ca __futex_abstimed_wait_common64 (libpthread.so.0 + 0x158ca)
+                                                    #1  0x00007f7ea6fb0270 pthread_cond_wait@@GLIBC_2.3.2 (libpthread.so.0 + 0xf270)
+                                                    #2  0x00007f7ea5ea8a8d n/a (libavcodec.so.58 + 0x620a8d)
+                                                    #3  0x00007f7ea6faa259 start_thread (libpthread.so.0 + 0x9259)
+                                                    #4  0x00007f7ea43b35e3 __clone (libc.so.6 + 0xfe5e3)
+                                                    
+                                                    Stack trace of thread 208482:
+                                                    #0  0x00007f7ea6fb68ca __futex_abstimed_wait_common64 (libpthread.so.0 + 0x158ca)
+                                                    #1  0x00007f7ea6fb0270 pthread_cond_wait@@GLIBC_2.3.2 (libpthread.so.0 + 0xf270)
+                                                    #2  0x00007f7ea5ea8a8d n/a (libavcodec.so.58 + 0x620a8d)
+                                                    #3  0x00007f7ea6faa259 start_thread (libpthread.so.0 + 0x9259)
+                                                    #4  0x00007f7ea43b35e3 __clone (libc.so.6 + 0xfe5e3)
+                                                    ELF object binary architecture: AMD x86-64
