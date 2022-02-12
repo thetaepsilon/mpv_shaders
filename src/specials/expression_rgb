@@ -27,13 +27,13 @@ cat << EOF
 
 
 vec4 hook() {
-	vec3 c = ${in}_tex(${in}_pos).rgb;
+	vec4 c = ${in}_tex(${in}_pos);
 
 	${_ab_start}
 		c = ${expr};
 	${_ab_end}
-	
-	return vec4(c, 1.);
+
+	return c;
 }
 EOF
 
