@@ -1,0 +1,6 @@
+ (+) Video --vid=1 (*) (h264 1280x720 59.940fps)
+ (+) Audio --aid=1 (*) (aac 2ch 44100Hz)
+AO: [pulse] 44100Hz stereo 2ch float
+VO: [gpu] 1280x720 yuv420p
+mpv: ../video/out/gpu/video.c:1333: copy_image: Assertion `*offset + count <= 4' failed.
+Aborted (core dumped)
