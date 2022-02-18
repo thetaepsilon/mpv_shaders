@@ -4,7 +4,6 @@
 //!SAVE blurred_horizontal_from_${in}
 //!WIDTH ${in}.w
 //!HEIGHT ${in}.h
-//!COMPONENTS 3
 
 //#include kernel
 
@@ -55,7 +54,6 @@ vec4 hook() {
 //!SAVE ${out:$in}
 //!WIDTH ${in}.w
 //!HEIGHT ${in}.h
-//!COMPONENTS 3
 
 //#include kernel
 

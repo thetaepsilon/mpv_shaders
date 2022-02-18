@@ -4,7 +4,6 @@
 //!SAVE ${out:$in}
 //!WIDTH ${in}.w
 //!HEIGHT ${in}.h
-//!COMPONENTS 3
 
 #define S(v) ((2*v) + 1)
 #define KERNEL_SIZE S(KERNEL_RADIUS_X) * S(KERNEL_RADIUS_Y)

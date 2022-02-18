@@ -4,7 +4,6 @@
 //!SAVE ${out:$in}
 //!WIDTH ${in}.w
 //!HEIGHT ${in}.h
-//!COMPONENTS 3
 
 //#include kernel
 
