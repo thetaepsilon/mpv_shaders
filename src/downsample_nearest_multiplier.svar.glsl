@@ -1,4 +1,4 @@
-//!HOOK MAINPRESUB
+//!HOOK ${after:MAINPRESUB}
 //!DESC downsampling pass: nearest neighbour (multiplier config)
 //!BIND ${in}
 //!SAVE ${out:$in}
