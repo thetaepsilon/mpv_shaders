@@ -1,1 +1,0 @@
---glsl-shader=$(crt_mode=1 thc_diff_scale=0.33 ./specials/diff_rgb | cs) --glsl-shader=$(spp lutdata spp/nudge/vstretch_x3.glsl < simple_nudge_and_colour.spp.glsl | svar in MAINPRESUB vstretch_rowdim 0.33 | cs) --glsl-shader=exact_output.glsl
