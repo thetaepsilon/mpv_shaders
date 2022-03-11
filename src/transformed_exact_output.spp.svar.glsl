@@ -1,7 +1,6 @@
 //!HOOK ${at:MAINPRESUB}
 //!DESC transformed space exact output, setup phase
 //!BIND HOOKED
-//!COMPONENTS 3
 
 //#include funcs
 
@@ -17,7 +16,6 @@ vec4 hook() {
 //!HOOK POSTKERNEL
 //!DESC transformed space exact output, undo draw phase
 //!BIND PREKERNEL
-//!COMPONENTS 3
 
 //#include funcs
 

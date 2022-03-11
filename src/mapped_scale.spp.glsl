@@ -1,7 +1,6 @@
 //!HOOK PREKERNEL
 //!DESC transformed scaling, prekernel phase
 //!BIND HOOKED
-//!COMPONENTS 3
 
 //#include map
 
@@ -18,7 +17,6 @@ vec4 hook() {
 //!HOOK POSTKERNEL
 //!DESC transformed scaling, postkernel phase
 //!BIND HOOKED
-//!COMPONENTS 3
 
 //#include unmap
 

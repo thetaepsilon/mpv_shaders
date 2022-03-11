@@ -1,7 +1,6 @@
 //!HOOK ${at:MAINPRESUB}
 //!DESC gamma workspace prepare pass
 //!BIND HOOKED
-//!COMPONENTS 3
 
 vec3 f(vec3 c) {
 	c = max(c, vec3(0.));

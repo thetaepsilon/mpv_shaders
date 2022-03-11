@@ -4,7 +4,6 @@
 //!SAVE ${out:$in}
 //!WIDTH ${in}.w ${x} /
 //!HEIGHT ${in}.h ${y:$x} /
-//!COMPONENTS 3
 
 #define MAP_X ${x}
 #define MAP_Y ${y:$x}

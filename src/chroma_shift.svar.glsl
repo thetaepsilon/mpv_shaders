@@ -4,7 +4,6 @@
 //!SAVE ${out:$in}
 //!WIDTH ${in}.w
 //!HEIGHT ${in}.h
-//!COMPONENTS 3
 
 vec3 get(vec2 pix_in) {
 	vec2 pos = pix_in / ${in}_size;
