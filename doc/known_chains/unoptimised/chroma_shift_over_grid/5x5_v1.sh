@@ -1,1 +1,0 @@
---glsl-shader=$(svar w 240 h 180 in MAINPRESUB < downsample_nearest.svar.glsl | cs) --glsl-shader=$(svar gamma 2.2 < gamma_exact_output.svar.glsl | cs)  --glsl-shader=$(spp lutdata spp/nudge/5x5_lcd_u_centred.frag.glsl < simple_nudge_and_colour.spp.glsl | svar in MAINPRESUB d1 0.5 d2 0.125 | cs) --glsl-shader=$(svar in MAINPRESUB shift -1. < chroma_shift.svar.glsl | cs)
