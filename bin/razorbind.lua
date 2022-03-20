@@ -6,9 +6,8 @@ Usage: razorbind.lua streammode scriptfile.lua [script args] < docfile
 
 Processes docfile with @{var} and @!var style substitutions.
 scriptfile is evaluated, being passed script args in it's varargs (...) array,
-which must then return two instances of a table, function, or nil.
-(called respectively "lookup" and "multiline" below).
-nil will cause lookups of the respective kinds below to raise an error.
+which must then return a table T whose keys will be used as described,
+or a function lookup(keyname) whose return values will be used in a similar fashion.
 
 streammode controls the write-out mode for transformed lines of docfile.
 streammode = buffered buffers all lines before saving,
@@ -19,12 +18,16 @@ variable names must be composed of lowercase ascii letters, ascii digits,
 and underscores, with a minimum length 1. in other words, [a-z0-9_]+ .
 
 @{varname} anywhere on a line gets replaced by calling lookup("varname")
-(or [] for tables), returning a string.
+(or T["varname"] for tables), which must return a singular string.
 
 @!varname may only occur once per line, may only be proceeded by whitespace,
 and must otherwise be the sole contents of a line.
-here multiline("varname") is called and must return a list-like table of strings,
-which will be substituted one per line into the output.
+here lookup("varname") or T["varname"] must yield a list-like table of strings,
+which will be copied one per line into the output.
+any proceeding whitespace (e.g. indentation) will be prepended to each copied line.
+
+in any case, lookups that return nil, or that yield the incorrect type,
+will cause an error.
 
 all returned data may be cached.
 returned functions and tables from the script must be pure (including metatables).
@@ -76,7 +79,7 @@ end
 
 
 local err_type =
-	"script returned unsupported lookup table type: expected function, table, or nil, got "
+	"script returned unsupported lookup table type: expected function or table, got "
 
 local setup_getter = function(obj, label)
 	local ret = nil
@@ -88,12 +91,6 @@ local setup_getter = function(obj, label)
 		end
 	elseif t == "function" then
 		ret = obj
-	elseif t == "nil" then
-		ret = function(k)
-			error(
-				"doc wanted " .. label .. " variable " .. k ..
-				", but the script file did not return an object for " .. label)
-		end
 	else
 		error(err_type .. t .. " for " .. label)
 	end
@@ -124,10 +121,9 @@ local use_args = function(_streammode, scriptpath, ...)
 	local _lookup, _multiline = script(...)
 
 	local lookup = setup_getter(_lookup, "lookup")
-	local multiline = setup_getter(_multiline, "multiline")	
 
 	--local docfile = assert(io.open(docpath))
-	return streammode, lookup, multiline
+	return streammode, lookup
 end
 
 
@@ -272,9 +268,9 @@ end
 
 
 
-local process_doc = function(getline, _lookup, _multiline, writeln)
+local process_doc = function(getline, _lookup, writeln)
 	local lookup 	= cache_(_lookup, validate_lookup)
-	local multiline	= cache_(_multiline, validate_multiline)
+	local multiline	= cache_(_lookup, validate_multiline)
 
 	local _lineno = 0
 	local lineno = function()
@@ -300,12 +296,12 @@ end
 
 
 local main = function(_print, ...)
-	local stream, lookup, multiline = use_args(...)
+	local stream, lookup = use_args(...)
 	local docfile = io.stdin
 
 	local writeln, flush = setup_output_stream(_print, stream)
 
-	process_doc(docfile:lines(), lookup, multiline, writeln)
+	process_doc(docfile:lines(), lookup, writeln)
 	flush()
 end
 
