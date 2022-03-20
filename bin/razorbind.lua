@@ -204,7 +204,7 @@ local cache_ = function(uncached, validate)
 		local hit = cache[key]
 		if not hit then
 			local raw = uncached(key)
-			hit = validate(raw)
+			hit = validate(raw, key)
 			cache[key] = hit
 		end
 		return hit
