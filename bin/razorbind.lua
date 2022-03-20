@@ -2,13 +2,18 @@
 
 local usage = [[
 
-Usage: razorbind.lua scriptfile.lua [script args] < docfile
+Usage: razorbind.lua streammode scriptfile.lua [script args] < docfile
 
 Processes docfile with @{var} and @!var style substitutions.
 scriptfile is evaluated, being passed script args in it's varargs (...) array,
 which must then return two instances of a table, function, or nil.
 (called respectively "lookup" and "multiline" below).
 nil will cause lookups of the respective kinds below to raise an error.
+
+streammode controls the write-out mode for transformed lines of docfile.
+streammode = buffered buffers all lines before saving,
+so partial files aren't written on error if being used in a pipeline.
+streammode = stream prints lines as they are processed.
 
 variable names must be composed of lowercase ascii letters, ascii digits,
 and underscores, with a minimum length 1. in other words, [a-z0-9_]+ .
@@ -24,12 +29,6 @@ which will be substituted one per line into the output.
 all returned data may be cached.
 returned functions and tables from the script must be pure (including metatables).
 
-optional arguments in env vars:
-* mode ( = stream, buffered )
-	write-out mode for transformed lines of docfile.
-	default (mode = buffered) is to buffer all lines before saving,
-	so partial files aren't written on error if being used in a pipeline.
-	mode = stream prints lines as they are processed.
 ]]
 
 
@@ -102,7 +101,22 @@ local setup_getter = function(obj, label)
 	return ret
 end
 
-local use_args = function(scriptpath, ...)
+
+local parse_stream_mode = function(mode)
+	local stream = false
+	if mode then
+		if mode == "stream" then
+			stream = true
+		elseif mode ~= "buffered" then
+			error("unrecognised value for streammode: " .. mode)
+		end
+	end
+	return stream
+end
+
+local use_args = function(_streammode, scriptpath, ...)
+	local streammode = parse_stream_mode(_streammode)
+
 	--assert(docpath, usage)
 	assert(scriptpath, usage)
 
@@ -113,20 +127,10 @@ local use_args = function(scriptpath, ...)
 	local multiline = setup_getter(_multiline, "multiline")	
 
 	--local docfile = assert(io.open(docpath))
-	return lookup, multiline
+	return streammode, lookup, multiline
 end
 
-local parse_stream_mode = function(mode)
-	local stream = false
-	if mode then
-		if mode == "stream" then
-			stream = true
-		elseif mode ~= "buffered" then
-			error("unrecognised value for mode variable: " .. mode)
-		end
-	end
-	return stream
-end
+
 
 local setup_output_stream = function(_print, stream)
 	local writeln, flush = nil, nil
@@ -295,12 +299,10 @@ end
 
 
 
-local main = function(_print, getenv, ...)
-	local lookup, multiline = use_args(...)
+local main = function(_print, ...)
+	local stream, lookup, multiline = use_args(...)
 	local docfile = io.stdin
 
-	local mode = os.getenv("mode")
-	local stream = parse_stream_mode(mode)
 	local writeln, flush = setup_output_stream(_print, stream)
 
 	process_doc(docfile:lines(), lookup, multiline, writeln)
@@ -325,5 +327,5 @@ local protected_main = function(...)
 	return ret
 end
 
-os.exit(protected_main(print, os.getenv, ...))
+os.exit(protected_main(print, ...))
 
