@@ -1,4 +1,4 @@
-//!HOOK MAINPRESUB
+//!HOOK ${after}
 //!DESC downsampling pass: total area per-channel maximum
 //!BIND ${in}
 //!SAVE ${out:$in}
