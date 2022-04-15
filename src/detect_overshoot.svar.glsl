@@ -1,4 +1,4 @@
-//!HOOK MAINPRESUB
+//!HOOK ${at}
 //!DESC channel overshoot (>1.0) detector
 //!BIND ${in}
 //!SAVE ${out:$in}
