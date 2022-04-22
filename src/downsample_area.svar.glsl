@@ -14,17 +14,13 @@
 // total number of samples, reciprocal to scale total to average.
 const float scale = 1.0 / float(MAP_X * MAP_Y);
 
-#if ${blur_mode:0}
-#define P(x) ( x )
-#else
-#define P(x) ( int( x ) )
-#endif
+
 
 vec4 hook() {
 	//if (mod(frame, 2.) < 1.) discard;
 
-	int tx = P(gl_FragCoord.x);
-	int ty = P(gl_FragCoord.y);
+	int tx = int(gl_FragCoord.x);
+	int ty = int(gl_FragCoord.y);
 
 	int ox = tx * MAP_X;
 	int oy = ty * MAP_Y;
