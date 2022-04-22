@@ -1,4 +1,4 @@
-//!HOOK ${after:MAINPRESUB}
+//!HOOK ${after}
 //!DESC downsampling pass: total area average, ${x}x${y:$x}
 //!BIND ${in}
 //!SAVE ${out:$in}
