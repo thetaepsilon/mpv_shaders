@@ -5,6 +5,9 @@
 //!WIDTH ${in}.w ${x} /
 //!HEIGHT ${in}.h ${y:$x} /
 
+
+//#include? extrabind
+
 #define MAP_X ${x}
 #define MAP_Y ${y:$x}
 
