@@ -34,12 +34,12 @@ vec4 hook() {
 		vec2 srcpix = vec2(ox + x, oy + y);
 		vec2 srcpt = srcpix / SZ;
 		vec3 data = TEXF(srcpt).rgb;
-//#optreplace data = pow(clamp(data, 0., 1.), vec3(${input_gamma}));
+//#optreplace data = ${input_transform};
 		total += data;
 	}
 	}
 	total *= scale;
-//#optreplace total = pow(total, vec3(1.) / vec3(${output_gamma}));
+//#optreplace total = ${output_transform};
 	return vec4(total, 1.);
 }
 
