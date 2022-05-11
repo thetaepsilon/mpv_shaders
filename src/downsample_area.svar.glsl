@@ -27,7 +27,9 @@ vec4 hook() {
 
 	int ox = tx * MAP_X;
 	int oy = ty * MAP_Y;
-	vec2 origin = vec2(ox, oy);
+	// note origin must be +0.5 still.
+	// we don't wnat straddle sampling.
+	vec2 origin = vec2(ox, oy) + vec2(0.5);
 
 	vec3 total = vec3(0.);
 	for (int x = 0; x < MAP_X; x++) {
