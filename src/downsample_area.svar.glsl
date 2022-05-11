@@ -42,8 +42,8 @@ vec4 hook() {
 		total += data;
 	}
 	}
-	total *= scale;
-//#optreplace total = ${output_transform};
-	return vec4(total, 1.);
+	vec3 result = total * scale;
+//#optreplace result = ${output_transform};
+	return vec4(result, 1.);
 }
 
