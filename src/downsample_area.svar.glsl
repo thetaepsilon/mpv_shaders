@@ -8,13 +8,13 @@
 
 //#include? extrabind
 
-#define MAP_X ${x}
-#define MAP_Y ${y:$x}
+const int sample_count_x = ${x};
+const int sample_count_y = ${y:$x};
 
 #define TEXF ${in} ## _tex
 #define SZ (${in} ## _size)
 
-const int sample_count = MAP_X * MAP_Y;
+const int sample_count = sample_count_x * sample_count_y;
 
 
 
@@ -24,15 +24,16 @@ vec4 hook() {
 	int tx = int(gl_FragCoord.x);
 	int ty = int(gl_FragCoord.y);
 
-	int ox = tx * MAP_X;
-	int oy = ty * MAP_Y;
+	int ox = tx * sample_count_x;
+	int oy = ty * sample_count_y;
+
 	// note origin must be +0.5 still.
 	// we don't wnat straddle sampling.
 	vec2 origin = vec2(ox, oy) + vec2(0.5);
 
 	vec3 total = vec3(0.);
-	for (int x = 0; x < MAP_X; x++) {
-	for (int y = 0; y < MAP_Y; y++) {
+	for (int x = 0; x < sample_count_x; x++) {
+	for (int y = 0; y < sample_count_y; y++) {
 		vec2 offset = vec2(x, y);
 		vec2 srcpix = origin + offset;
 		vec2 srcpt = srcpix / SZ;
