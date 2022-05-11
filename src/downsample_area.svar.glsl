@@ -14,8 +14,7 @@
 #define TEXF ${in} ## _tex
 #define SZ (${in} ## _size)
 
-// total number of samples, reciprocal to scale total to average.
-const float scale = 1.0 / float(MAP_X * MAP_Y);
+const int sample_count = MAP_X * MAP_Y;
 
 
 
@@ -42,7 +41,7 @@ vec4 hook() {
 		total += data;
 	}
 	}
-	vec3 result = total * scale;
+	vec3 result = total / float(sample_count);
 //#optreplace result = ${output_transform};
 	return vec4(result, 1.);
 }
