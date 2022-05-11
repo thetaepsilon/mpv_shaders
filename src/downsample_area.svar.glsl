@@ -27,10 +27,13 @@ vec4 hook() {
 
 	int ox = tx * MAP_X;
 	int oy = ty * MAP_Y;
+	vec2 origin = vec2(ox, oy);
+
 	vec3 total = vec3(0.);
 	for (int x = 0; x < MAP_X; x++) {
 	for (int y = 0; y < MAP_Y; y++) {
-		vec2 srcpix = vec2(ox + x, oy + y);
+		vec2 offset = vec2(x, y);
+		vec2 srcpix = origin + offset;
 		vec2 srcpt = srcpix / SZ;
 		vec3 data = TEXF(srcpt).rgb;
 //#optreplace data = ${input_transform};
