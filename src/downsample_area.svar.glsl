@@ -31,7 +31,7 @@ vec4 hook() {
 	// we don't wnat straddle sampling.
 	vec2 origin = vec2(ox, oy) + vec2(0.5);
 
-	vec3 total = vec3(0.);
+	vec3 accum = vec3(0.);
 	for (int x = 0; x < sample_count_x; x++) {
 	for (int y = 0; y < sample_count_y; y++) {
 		vec2 offset = vec2(x, y);
@@ -39,10 +39,10 @@ vec4 hook() {
 		vec2 srcpt = srcpix / SZ;
 		vec3 data = TEXF(srcpt).rgb;
 //#optreplace data = ${input_transform};
-		total += data;
+		accum += data;
 	}
 	}
-	vec3 result = total / float(sample_count);
+	vec3 result = accum / float(sample_count);
 //#optreplace result = ${output_transform};
 	return vec4(result, 1.);
 }
