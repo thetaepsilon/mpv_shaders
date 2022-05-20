@@ -6,6 +6,7 @@
 //!HEIGHT ${in}.h
 
 //#include kernel
+//#include? extrabind
 
 #define TEXF ${in}_tex
 #define SZ  ( ${in}_size )
@@ -56,6 +57,7 @@ vec4 hook() {
 //!HEIGHT ${in}.h
 
 //#include kernel
+//#include? extrabind
 
 #define TEXF blurred_horizontal_from_${in}_tex
 #define SZ  ( blurred_horizontal_from_${in}_size )
