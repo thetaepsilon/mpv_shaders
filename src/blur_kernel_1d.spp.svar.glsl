@@ -27,16 +27,28 @@
 const accum_t output_scale = accum_t(${e:1.0});
 const vec2 stepv = vec2(${xs:0}, ${ys:0});
 
+accum_t transform(accum_t data) {
+//#optreplace data = pow(clamp(data, 0., 1.), accum_t(${input_gamma})) ;
+//#optreplace data = ${input_transform};
+	return data;
+}
+
 vec4 hook() {
 	vec2 origin = gl_FragCoord.xy;
 	accum_t total = accum_t(0.);
+
+// XXX: could we figure out some way to re-use the centre pixel from the for-loop...
+#if ${load_origin:0}
+	accum_t original_raw = MASK(TEXF(${in}_pos));
+	accum_t original = transform(original_raw);
+#endif
 
 	for (int i = -kernel_radius; i <= kernel_radius; i++) {
 		vec2 pix = origin + (vec2(i) * stepv);
 		vec2 pt = pix / SZ;
 		accum_t data = MASK(TEXF(pt));
-//#optreplace data = pow(clamp(data, 0., 1.), accum_t(${input_gamma})) ;
-//#optreplace data = ${input_transform};
+		data = transform(data);
+
 
 		int idx = i + kernel_radius;
 		float m = kernel_data[idx];
