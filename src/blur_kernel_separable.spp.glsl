@@ -29,7 +29,7 @@ vec4 hook() {
 		vec3 data = TEXF(pt).rgb;
 		data = clamp(data, vec3(0.), vec3(1.));
 //#optreplace data = pow(data, vec3(${input_gamma}));
-//#optreplace data = ${input_transform};
+//#optreplace if (${transform_ab:true}) data = ${input_transform};
 
 		int idx = i + kernel_radius;
 		float m = kernel_data[idx];
@@ -95,7 +95,7 @@ vec4 hook() {
 //#optreplace if (${ab_expr}) result = original; 
 
 //#optreplace result = pow(result, vec3(1. / float(${output_gamma})));
-//#optreplace result = ${output_transform};
+//#optreplace if (${transform_ab:true}) result = ${output_transform};
 
 	return vec4(result, 1.);
 }
