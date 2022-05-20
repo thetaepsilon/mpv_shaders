@@ -1,1 +1,0 @@
---glsl-shader=$(spp funcs spp/transform_coupled/logarithm.frag.svar.glsl < transformed_exact_output.spp.svar.glsl | svar in MAINPRESUB stops 16 | cs) --glsl-shader=$(spp lutdata spp/nudge/3x3_lcd_u_blended.frag.glsl < simple_nudge_and_colour.spp.glsl | svar in MAINPRESUB d1 0.9375 dr 0.875 dc 0.875 | cs) --glsl-shader=$(svar in MAINPRESUB shift -1 < chroma_shift.svar.glsl | cs)

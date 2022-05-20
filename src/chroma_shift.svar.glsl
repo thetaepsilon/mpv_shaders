@@ -1,4 +1,4 @@
-//!HOOK ${after:MAINPRESUB}
+//!HOOK ${after:LINEAR}
 //!DESC colour-varying image shift, horizontal
 //!BIND ${in}
 //!SAVE ${out:$in}
@@ -8,7 +8,6 @@
 vec3 get(vec2 pix_in) {
 	vec2 pos = pix_in / ${in}_size;
 	vec3 data = ${in}_tex(pos).rgb;
-//#optreplace data = pow(clamp(data, 0., 1.), vec3(${input_gamma}));
 	return data;
 }
 
@@ -59,6 +58,5 @@ vec4 hook() {
 	vec2 right = centre + vec2(1, 0);
 
 	vec3 result = pick(shift, get(left), get(centre), get(right));
-//#optreplace result = pow(clamp(result, 0., 1.), vec3(1.) / vec3(${output_gamma}));
 	return vec4(result, 1.);
 }
