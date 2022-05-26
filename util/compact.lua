@@ -30,7 +30,7 @@ local _factor = assert(tonumber(__factor), "factor not recogniseable as a number
 local factor, _f = modf(_factor)
 local nat = "only integer factors greater than 1 are supported."
 assert(_f == 0, nat)
-assert(factor > 2, nat)
+assert(factor > 1, nat)
 
 -- some initial sanity testing of the format string.
 -- can't catch everything but should catch some dumb mistakes up front.
