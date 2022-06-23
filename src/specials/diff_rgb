@@ -52,7 +52,7 @@ src_frag_main_crt_mode_disabled() {
 	bvec3 are_nonzero = greaterThan(abs(nudges), ivec3(0));
 	const vec3 base_darken = vec3(${base_darken});
 	vec3 modulate = vec3(1.0) - (vec3(are_nonzero) * base_darken);
-	p_ret *= modulate;
+	linear_ret *= modulate;
 EOF
 }
 src_frag_main_crt_mode() {
@@ -293,6 +293,7 @@ vec3 linear_light_main(int _which, vec3 left, vec3 centre, vec3 right) {
 
 	// debug perceptual blend
 	vec3 p_ret = pick(nudges_f, p_left, p_centre, p_right);
+	vec3 linear_ret = pow(p_ret, undo_perceptual);
 EOF
 	src_frag_main_crt_mode;
 cat << EOF
@@ -317,7 +318,6 @@ cat << EOF
 
 	vec3 diff_mult = vec3(${diff_expr:-diff_factor(centre, comparison)});
 
-	vec3 linear_ret = pow(p_ret, undo_perceptual);
 	linear_ret *= diff_mult;
 
 
