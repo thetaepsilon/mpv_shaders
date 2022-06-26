@@ -322,23 +322,6 @@ cat << EOF
 
 
 
-	// another stab at addressing perceived pixel thinning problems:
-	// sometimes if you've got a run of e.g. red pixels with a white one standing out,
-	// the stronger green and blue pixels may appear to be getting invaded by the surroundings.
-	// try and compensate for this by detecting when the current source pixel "stands out"
-	// (which is to say it is noticeably higher channel values than it's surroundings),
-	// and lerping the overall colour of the subpixel towards that of the source pixel.
-	#define X(name) vec3 thc_ ## name = thinning_compare( name );
-	X_DO_PIXELS
-	#undef X
-	const vec3 Z = vec3(0.);
-	vec3 thc_diff_l = max(Z, thc_centre - thc_left);
-	vec3 thc_diff_r = max(Z, thc_centre - thc_right);
-	vec3 thc_diff_min = min(thc_diff_l, thc_diff_r);
-	thc_diff_min *= vec3(${thc_diff_scale:-0.25});
-	linear_ret = mix(linear_ret, centre, thc_diff_min);
-
-
 	return linear_ret;
 }
 
