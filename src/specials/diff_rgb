@@ -44,7 +44,7 @@ ordering="$("subpixel_order_${subpixel_order}")" || \
 
 # "crt mode": disables the darkening of the colour channels when it's not their home position.
 # otherwise the below applies.
-base_darken="${base_darken:-7. / 64.}"
+base_darken="${base_darken:-32. / 64.}"
 
 src_frag_main_crt_mode_disabled() {
 	cat << EOF
@@ -126,10 +126,8 @@ EOF
 src_linear_main() {
 	cat << EOF
 
-// human perceptual space can be modelled as cbrt(linear),
-// however the default here is a bit different from that for historical reasons
-// (mostly as an early countermeasure against some lone virtual pixels appearing thinned).
-const vec3 perceptual = vec3(${perceptual_gamma:-0.4});
+// gamma used for blending - lower favours blending to darker colours more.
+const vec3 perceptual = vec3(${perceptual_gamma:-0.1});
 const vec3 undo_perceptual = vec3(1.0) / perceptual;
 
 // visual error flag colour (read in heavy's voice)
