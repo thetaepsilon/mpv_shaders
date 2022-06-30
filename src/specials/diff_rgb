@@ -268,12 +268,6 @@ const ivec3 initial_nudges = ivec3(${ordering});
 #define X_DO_PIXELS X(left) X(centre) X(right)
 
 vec3 linear_light_main(int _which, vec3 left, vec3 centre, vec3 right) {
-	#define S(c) vec3 p_ ## c = pow(c, perceptual)
-	S(left);
-	S(centre);
-	S(right);
-	#undef S
-
 	// centre bias the subpixel so left (initially zero) becomes -1.
 	int which = _which - 1;
 
@@ -289,9 +283,17 @@ vec3 linear_light_main(int _which, vec3 left, vec3 centre, vec3 right) {
 	nudges += ivec3(which);
 	vec3 nudges_f = vec3(nudges) * 0.33;
 
-	// debug perceptual blend
+	// when lerping between pixels,
+	// blend the colours in a way that makes more sense to the human eye.
+	// overriden by perceptual gamma above.
+	#define S(c) vec3 p_ ## c = pow(c, perceptual)
+	S(left);
+	S(centre);
+	S(right);
+	#undef S
 	vec3 p_ret = pick(nudges_f, p_left, p_centre, p_right);
 	vec3 linear_ret = pow(p_ret, undo_perceptual);
+
 EOF
 	src_frag_main_crt_mode;
 cat << EOF
