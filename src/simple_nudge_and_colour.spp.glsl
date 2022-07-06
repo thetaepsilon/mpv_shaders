@@ -24,19 +24,13 @@ vec4 hook() {
 
 	int which_x = int(mod(inpix.x, float(HPIXSZ)));
 	int which_y = int(mod(inpix.y, float(VPIXSZ)));
-	#if ${swap_axes:0}
-	int idx = (which_x * HPIXSZ) + which_y;
-	#else
+
 	int idx = (which_y * HPIXSZ) + which_x;
-	#endif
+
 
 	vec2 srcpix = nearest_pix;
 	#ifdef USE_DRIFT_LUT
 	vec2 drift_data = drift_lut[idx];
-
-	#if ${swap_axes:0}
-	drift_data = drift_data.yx;
-	#endif
 
 	#ifdef DRIFT_LUT_IS_ABS
 	vec2 drift = drift_data;
