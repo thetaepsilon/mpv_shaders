@@ -30,21 +30,12 @@ vec4 hook() {
 
 	vec2 srcpix = nearest_pix;
 	#ifdef USE_DRIFT_LUT
-	vec2 drift_data = drift_lut[idx];
-
-	#ifdef DRIFT_LUT_IS_ABS
-	vec2 drift = drift_data;
-	#else
-
-	// we have the original linear position (downscaled)
-	// and the nearest center of pixel (nearest_pix).
-	// we then scale the difference a very small amount towards the linear position,
-	// such that we get a position that mixes a trace amount of the neighbouring pixel in.
-	vec2 drift_multiplier = drift_data;
-	vec2 unity_drift = downscaled - nearest_pix;
-	vec2 drift = (unity_drift * drift_multiplier);
-
+	#if DRIFT_LUT_IS_ABS != 1
+	#error "multiplier drift mode is deprecated and removed".
 	#endif
+	vec2 drift_data = drift_lut[idx];
+	vec2 drift = drift_data;
+
 	srcpix += drift;
 	#endif
 
