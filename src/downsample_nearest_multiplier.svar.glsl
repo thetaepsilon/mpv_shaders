@@ -11,7 +11,7 @@
 #define TEXF ${in} ## _tex
 #define SZ (${in} ## _size)
 
-vec2 offset = vec2(float(${ox:0}), float(${oy:0}));
+vec2 offset = vec2(${offset:0});
 
 vec4 hook() {
 	vec2 inpix = floor(gl_FragCoord.xy);
