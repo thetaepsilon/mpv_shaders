@@ -16,26 +16,6 @@ vec2 nearest(vec2 pix) {
 
 
 
-
-
-#ifdef USE_TINT_LUT
-const float tint_max = TINT_MAX;
-const vec3 tint_normalise = vec3(1.) / vec3(tint_max);
-
-#ifndef TINT_DEFAULT
-#define TINT_DEFAULT _err_tint_default_not_defined
-#endif
-
-const vec3 tint_mix = vec3(${tint_strength:TINT_DEFAULT});
-const vec3 tint_total_normalise = vec3(1.0) / (vec3(1.0) + tint_mix);
-
-#define TINT_ENABLE 1
-
-#endif
-
-
-
-
 vec4 hook() {
 	vec2 inpix = gl_FragCoord.xy;
 //#optreplace if (${jitter_expr}) inpix += vec2(1.);
@@ -106,15 +86,6 @@ vec4 hook() {
 
 	#endif	// CUSTOM_MODULATE
 
-	#endif
-
-
-
-	#ifdef TINT_ENABLE
-	vec3 tint = tint_lut[idx];
-	tint *= tint_normalise;
-	data += tint * tint_mix;
-	data *= tint_total_normalise;
 	#endif
 
 
