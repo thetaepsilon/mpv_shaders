@@ -21,6 +21,9 @@ vec4 hook() {
 	vec2 pix = nearest + vec2(0.5) + offset;
 
 	vec2 pt = pix / SZ;
-	return TEXF(pt);
+	vec4 result = TEXF(pt);
+
+//#optreplace result = ${output_transform};
+	return result;
 }
 
