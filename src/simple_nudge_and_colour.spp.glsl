@@ -49,12 +49,6 @@ vec4 hook() {
 
 
 
-	#ifndef MODULATE_DISABLE_CLAMP
-	data = max(data, vec3(0.));
-	#endif	// MODULATE_DISABLE_CLAMP
-
-
-
 	// some old functionality removed for streamlining.
 	// activated by some preprocessor defines when they were used
 	// (which were set by the lutdata spp section files),
