@@ -71,10 +71,7 @@ vec4 hook() {
 
 	#ifdef USE_MODULATION_LUT
 	vec3 mixer = modulate_lut[idx];
-
-	const vec3 base = vec3(0.);
-	data = mix(base, data, mixer);
-
+	data = data * mixer;
 	#endif
 
 
