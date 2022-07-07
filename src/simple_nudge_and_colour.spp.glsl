@@ -55,16 +55,24 @@ vec4 hook() {
 
 
 
+	// some old functionality removed for streamlining.
+	// activated by some preprocessor defines when they were used
+	// (which were set by the lutdata spp section files),
+	// so just make them error out instead
+	// (the behaviour when they weren't used has been preserved).
 	#ifdef CUSTOM_MODULATE
 	#error "CUSTOM_MODULATE has been removed."
 	#endif
+	#ifdef MODULATE_BASE_COLOR
+	#error "custom MODULATE_BASE_COLOR has been removed."
+	#endif
+
+
 
 	#ifdef USE_MODULATION_LUT
 	vec3 mixer = modulate_lut[idx];
 
-	#ifndef MODULATE_BASE_COLOR
 	#define MODULATE_BASE_COLOR ${basecol:0, 0, 0}
-	#endif
 	const vec3 base = vec3(MODULATE_BASE_COLOR);
 	data = mix(base, data, mixer);
 
