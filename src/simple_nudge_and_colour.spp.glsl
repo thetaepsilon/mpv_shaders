@@ -72,7 +72,7 @@ vec4 hook() {
 	#ifdef USE_MODULATION_LUT
 	vec3 mixer = modulate_lut[idx];
 
-	#define MODULATE_BASE_COLOR ${basecol:0, 0, 0}
+	#define MODULATE_BASE_COLOR 0.
 	const vec3 base = vec3(MODULATE_BASE_COLOR);
 	data = mix(base, data, mixer);
 
