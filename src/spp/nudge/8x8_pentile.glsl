@@ -31,5 +31,3 @@ const vec3 modulate_lut[8*8] = vec3[](
 );
 #undef ROW
 
-#define MODULATE_BASE_COLOR ${basecol:0, 0, 0}
-
