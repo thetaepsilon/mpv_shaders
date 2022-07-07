@@ -18,7 +18,6 @@ vec2 nearest(vec2 pix) {
 
 vec4 hook() {
 	vec2 inpix = gl_FragCoord.xy;
-//#optreplace if (${jitter_expr}) inpix += vec2(1.);
 	vec2 downscaled = inpix * scale;
 	vec2 nearest_pix = nearest(downscaled);
 
