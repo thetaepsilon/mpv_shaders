@@ -18,7 +18,7 @@ const vec2 drift_lut[2*2] = vec2[](
 
 #define USE_MODULATION_LUT 1
 const vec3 _ns_W = vec3(1.00);
-const vec3 _ns_D = vec3(1./32.);
+const vec3 _ns_D = vec3(${scanline_rowdim:1./64.});
 const vec3 modulate_lut[2*2] = vec3[](
 	_ns_W, _ns_W,
 	_ns_D, _ns_D
