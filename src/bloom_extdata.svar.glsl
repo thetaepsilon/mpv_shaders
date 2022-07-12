@@ -47,11 +47,6 @@ vec4 hook() {
 
 	result *= exposure;
 
-	// ensure the result doesn't blare out - some shader passes don't like this
-//#optreplace #if 0	// ${disable_clamp}
-	result = min(result, vec3(1.0));
-//#optreplace #endif	// ${disable_clamp}
-
 	return vec4(result, 1.);
 }
 
