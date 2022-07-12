@@ -14,14 +14,13 @@
 
 vec3 input_transform(vec3 data) {
 
-//#include? input_transform
-
+//#optreplace data = ${input_transform};
 	return data;
 }
 
 vec3 bloom_transform(vec3 data) {
 
-//#include? bloom_transform
+//#optreplace data = ${bloom_transform:$input_transform};
 
 	return data;
 }
