@@ -27,8 +27,7 @@ vec3 bloom_transform(vec3 data) {
 
 
 
-const float addm = ${am:1.};
-const float exposure = ${e:0.75};
+const float m = float(${mix:0.5});
 
 vec4 hook() {
 	vec2 p = POS;
@@ -38,13 +37,7 @@ vec4 hook() {
 	reference = input_transform(reference);
 	data_bloom = bloom_transform(data_bloom);
 
-
-	vec3 addend = data_bloom * addm;
-
-	//bool ab = fract(frame / 2.0) < 0.5;
-	vec3 result = (reference + addend);
-
-	result *= exposure;
+	vec3 result = mix(reference, data_bloom, m);
 
 	return vec4(result, 1.);
 }
