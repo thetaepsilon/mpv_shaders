@@ -25,6 +25,13 @@ vec3 bloom_transform(vec3 data) {
 	return data;
 }
 
+vec3 output_transform(vec3 result) {
+
+//#optreplace result = ${output_transform};
+
+	return result;
+}
+
 
 
 const float m = float(${mix:0.5});
@@ -38,6 +45,8 @@ vec4 hook() {
 	data_bloom = bloom_transform(data_bloom);
 
 	vec3 result = mix(reference, data_bloom, m);
+
+	result = output_transform(result);
 
 	return vec4(result, 1.);
 }
