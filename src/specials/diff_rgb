@@ -184,20 +184,6 @@ vec3 diff_factor(vec3 a, vec3 b) {
 	// ratio of 1.0 means lower == higher, aka zero difference.
 	vec3 diff = vec3(1.0) - ratio;
 
-EOF
-
-	if test -n "${comparison_threshold:-}"; then {
-cat << EOF
-	// optional chopping of the start of the difference range.
-	// this can establish a visual threshold below which an eye cannot tell these apart.
-	diff = diff - vec3( ${comparison_threshold} );
-	diff = max(diff, zero);
-	//diff = zero;
-EOF
-	}; fi;
-
-cat << EOF
-
 	// in the 0/0 case, we consider that zero difference,
 	// so use the inverted (non-zero) mask to disable those components.
 	// non-zero channels will be multiplied by 1.0 and be unchanged.
@@ -206,16 +192,6 @@ cat << EOF
 	//if (any(lessThan(diff, zero))) return bigtroublenow;
 
 	diff = max(diff, zero);
-EOF
-
-	if test -n "${diffpow:-}"; then {
-cat << EOF
-	// tuning of how fast the effect kicks in.
-//#optreplace diff = pow(diff, vec3( ${diffpow} ));
-EOF
-	}; fi;
-
-cat << EOF
 
 	// maximum diff factor is also clamped as beyond a point the effect looks out of place.
 	diff *= vec3(${diffprescale:-1.0});
