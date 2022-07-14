@@ -92,6 +92,17 @@ src_header() {
 //!HEIGHT ${input}.h ${heightmult}
 //!COMPONENTS 3
 
+
+
+/* common constants block */
+
+// visual error flag colour (read in heavy's voice)
+const vec3 bigtroublenow = vec3(1.0, 0.0, 1.0);
+
+/* end common */
+
+
+
 EOF
 }
 
@@ -129,9 +140,6 @@ src_linear_main() {
 // gamma used for blending - lower favours blending to darker colours more.
 const vec3 perceptual = vec3(${perceptual_gamma:-1. / 4096.});
 const vec3 undo_perceptual = vec3(1.0) / perceptual;
-
-// visual error flag colour (read in heavy's voice)
-const vec3 bigtroublenow = vec3(1.0, 0.0, 1.0);
 
 vec3 diff_factor(vec3 a, vec3 b) {
 	// custom gamma for comparing differences
