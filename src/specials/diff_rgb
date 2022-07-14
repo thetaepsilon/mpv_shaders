@@ -94,10 +94,17 @@ src_header() {
 
 
 
-/* common constants block */
+/* common code block */
 
 // visual error flag colour (read in heavy's voice)
 const vec3 bigtroublenow = vec3(1.0, 0.0, 1.0);
+
+// not like later GLSL versions mix using bvec -
+// inputs must all be normal, defined, non-infinite values.
+// read as m ? a : b.
+vec3 ternary_bvec3_unsafe(bvec3 m, vec3 a, vec3 b) {
+	return (a * vec3(m)) + (b * vec3(not(m)));
+}
 
 /* end common */
 
@@ -131,6 +138,66 @@ vec4 loaded_main(int which, vec3 left, vec3 centre, vec3 right) {
 EOF
 }
 
+
+
+
+
+
+
+src_diff_factor_v2() {
+	cat << EOF
+
+vec3 diff_factor(vec3 a, vec3 b) {
+	vec3 lower = min(a, b);
+	vec3 higher = max(a, b);
+
+	// logarithmic space diff comparison.
+	// the difference control is log2(higher) - log2(lower)
+	// (this will yield a strictly positive or zero value).
+	// however, we have a mild difficulty with log2(0).
+	// either lower could be zero,
+	// or both lower and higher could be zero.
+	// log2(0.) is undefined, so usual trick -
+	// remember a ignore mask, substitute safe values,
+	// then consult the mask later.
+
+	const vec3 zero = vec3(0.);
+	bvec3 lower_nansense = equal(lower, zero);	// pun intentional
+	bvec3 higher_nansense = equal(higher, zero);
+
+	// disarm any zeroes by adding the bvecs
+	// (cast to vec3: true -> 1.0)
+	// so we guarantee legal inputs to log2().
+	vec3 defuse = vec3(lower_nansense) + vec3(higher_nansense);
+	lower += defuse;
+	higher += defuse;
+
+	vec3 loglower = log2(lower);
+	vec3 loghigher = log2(higher);
+	vec3 diff = loghigher - loglower;
+
+	const vec3 diff_max = abs(vec3(${diffclamp:-pow(2., 32.)}));
+	const vec3 diffprescale = abs(vec3(${diffprescale}));
+
+	// note that even in the both-inputs-zero case,
+	// well that means it doesn't matter what we return,
+	// as it's just a multiply with zero later.
+	// in the zero and non-zero case, log2(0) could be considered -inf.
+	// so considering we have a clamp on anyhow,
+	// in the event of _any_ zeroes just directly substitute the max clamp value.
+
+	diff *= diffprescale;
+	diff = min(diff, diff_max);
+
+	// gah, no bvec componentwise or operator in the spec why
+	diff = ternary_bvec3_unsafe(lower_nansense, diff_max, diff);
+	diff = ternary_bvec3_unsafe(higher_nansense, diff_max, diff);
+
+	return pow(vec3(2.0), -diff);
+}
+
+EOF
+}
 
 
 
