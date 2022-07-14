@@ -402,8 +402,23 @@ EOF
 
 
 
+
+# selection of alternative implementations based on env vars.
+# check it is valid before producing any output.
+# XXX: should do this for subpixel orders too...
+require() {
+	type "$1" 2>/dev/null || {
+		echo "# not found:" "$1" >&2;
+		exit 1;
+	};
+}
+impl_diff_factor="src_diff_factor_${impl_diff_factor:-v1}";
+require "$impl_diff_factor"
+
+
+
 src_header
-src_diff_factor_v1
+$impl_diff_factor
 src_linear_main
 src_loaded_main
 src_fetch_main
