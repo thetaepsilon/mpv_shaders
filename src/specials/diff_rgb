@@ -134,12 +134,8 @@ EOF
 
 
 
-src_linear_main() {
+src_diff_factor_v1() {
 	cat << EOF
-
-// gamma used for blending - lower favours blending to darker colours more.
-const vec3 perceptual = vec3(${perceptual_gamma:-1. / 4096.});
-const vec3 undo_perceptual = vec3(1.0) / perceptual;
 
 vec3 diff_factor(vec3 a, vec3 b) {
 	// custom gamma for comparing differences
@@ -211,7 +207,19 @@ vec3 diff_factor(vec3 a, vec3 b) {
 	return mult;
 }
 
+EOF
+}
 
+
+
+
+
+src_linear_main() {
+	cat << EOF
+
+// gamma used for blending - lower favours blending to darker colours more.
+const vec3 perceptual = vec3(${perceptual_gamma:-1. / 4096.});
+const vec3 undo_perceptual = vec3(1.0) / perceptual;
 
 
 
@@ -395,6 +403,7 @@ EOF
 
 
 src_header
+src_diff_factor_v1
 src_linear_main
 src_loaded_main
 src_fetch_main
