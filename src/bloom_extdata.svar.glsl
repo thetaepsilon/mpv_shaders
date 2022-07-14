@@ -44,7 +44,7 @@ vec4 hook() {
 	reference = input_transform(reference);
 	data_bloom = bloom_transform(data_bloom);
 
-	vec3 result = mix(reference, data_bloom, m);
+	vec3 result = ${mix_expr:mix(reference, data_bloom, m)};
 
 	result = output_transform(result);
 
