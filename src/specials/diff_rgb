@@ -159,15 +159,6 @@ vec3 diff_factor(vec3 a, vec3 b) {
 	then use addition of multiply masks later to get rid of the nonsense.
 	*/
 
-	const vec3 zero = vec3(0.0);
-	// get rid of pesky negatives, those can show up from source video texture a lot.
-	// cause isn't quite known, though might be out-of-gamut issues from yuv conversion,
-	// coupled with e.g. inprecise DCTs causing the reconstructed result to be out of bounds.
-	// if they appeared here they'd screw up the signs of everything on divide.
-	a = max(a, zero);
-	b = max(b, zero);
-
-	// remember, component-wise
 	vec3 lower = min(a, b);
 	vec3 _higher = max(a, b);
 
@@ -175,6 +166,7 @@ vec3 diff_factor(vec3 a, vec3 b) {
 	// and remember which channels they're in,
 	// then replace them with dummy values so the below division is defined.
 	// we will later consult the bvec to know which values can be disregarded.
+	const vec3 zero = vec3(0.);
 	bvec3 is_zero = equal(_higher, zero);
 	bvec3 is_nonzero = not(is_zero);
 
