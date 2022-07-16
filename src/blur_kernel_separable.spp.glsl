@@ -21,25 +21,27 @@ vec3 unit_range(vec3 data) {
 
 vec4 hook() {
 	vec2 origin = gl_FragCoord.xy;
-	vec3 total = vec3(0.);
+	vec3 total = vec3(${initial:0.});
 
 	for (int i = -kernel_radius; i <= kernel_radius; i++) {
 		vec2 pix = origin + (vec2(i, 0) * ${sscale:1.}) + bias;
 		vec2 pt = pix / SZ;
 		vec3 data = TEXF(pt).rgb;
 		data = clamp(data, vec3(0.), vec3(1.));
+
 //#optreplace data = pow(data, vec3(${input_gamma}));
 //#optreplace if (${transform_ab:true}) data = ${input_transform};
 
 		int idx = i + kernel_radius;
 		float m = kernel_data[idx];
-		vec3 contrib = data * m;
 
-		total += contrib;
+		vec3 contrib = ${contrib_expr:data * m};
+		total = ${fold_expr:total + contrib};
 	}
 
 	#ifdef KERNEL_SCALE_VALUE
-	total *= ( KERNEL_SCALE_VALUE );
+	const float scale = float(KERNEL_SCALE_VALUE);
+	total = ${scale_expr:total * scale};
 	#endif
 	return vec4(total, 1.);
 }
@@ -69,7 +71,7 @@ const float output_scale = ${e:1.0};
 
 vec4 hook() {
 	vec2 origin = gl_FragCoord.xy;
-	vec3 total = vec3(0.);
+	vec3 total = vec3(${initial:0.});
 	vec3 original = ${in}_tex(${in}_pos).rgb;
 
 	for (int i = -kernel_radius; i <= kernel_radius; i++) {
@@ -79,14 +81,16 @@ vec4 hook() {
 
 		int idx = i + kernel_radius;
 		float m = kernel_data[idx];
-		vec3 contrib = data * m;
 
-		total += contrib;
+		vec3 contrib = ${contrib_expr:data * m};
+		total = ${fold_expr:total + contrib};
 	}
 
 	#ifdef KERNEL_SCALE_VALUE
-	total *= ( KERNEL_SCALE_VALUE );
+	const float scale = float(KERNEL_SCALE_VALUE);
+	total = ${scale_expr:total * scale};
 	#endif
+
 	total *= output_scale;
 
 	vec3 result = total;
