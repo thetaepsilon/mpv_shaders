@@ -1,4 +1,4 @@
-//!HOOK MAINPRESUB
+//!HOOK ${at:MAINPRESUB}
 //!DESC integer upscaling pass
 //!BIND ${in}
 //!SAVE ${out:$in}
