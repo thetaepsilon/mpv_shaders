@@ -120,6 +120,11 @@ EOF
 src_loaded_main() {
 	cat << EOF
 
+vec3 output_transform(vec3 result) {
+	result = max(result, vec3(0.0));
+	return result;
+}
+
 vec4 loaded_main(int which, vec3 left, vec3 centre, vec3 right) {
 	#define X(var) vec3 col_ ## var = max( var.rgb, vec3(0.0));
 	// this X-macro list is not reused yet, so just invoke it inline here.
@@ -131,7 +136,9 @@ vec4 loaded_main(int which, vec3 left, vec3 centre, vec3 right) {
 	#define L(var) col_ ## var
 	vec3 result = linear_light_main(which, L(left), L(centre), L(right));
 	#undef L
-	result = max(result, vec3(0.0));
+
+	result = output_transform(result);
+
 	return vec4(result, 1.0);
 }
 
