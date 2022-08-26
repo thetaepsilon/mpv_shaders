@@ -121,7 +121,7 @@ src_loaded_main() {
 	cat << EOF
 
 vec3 output_transform(vec3 result) {
-	result = max(result, vec3(0.0));
+	result = ${output_transform:-max(result, vec3(0.0))};
 	return result;
 }
 
