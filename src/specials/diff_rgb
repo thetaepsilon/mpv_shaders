@@ -23,6 +23,8 @@ input="${in:-$hookpoint}";
 # would need detection of out of bounds positions though.
 output="${out}";
 
+extradata_bind="${extradata_bind:-}"
+
 
 
 # available subpixel orders.
@@ -87,6 +89,13 @@ src_header() {
 
 //!HOOK $hookpoint
 //!BIND $input
+EOF
+
+	if test -n "$extradata_bind"; then {
+		echo "//!BIND ${extradata_bind}";
+	}; fi;
+
+	cat << EOF
 //!SAVE $output
 //!WIDTH ${input}.w ${widthmult}
 //!HEIGHT ${input}.h ${heightmult}
@@ -111,6 +120,11 @@ vec3 ternary_bvec3_unsafe(bvec3 m, vec3 a, vec3 b) {
 
 
 EOF
+
+	if test -n "$extradata_bind"; then {
+		echo "#define EXTRADATA ${extradata_bind}_tex(${extradata_bind}_pos)";
+		echo;
+	}; fi;
 }
 
 
