@@ -488,7 +488,7 @@ EOF
 # check it is valid before producing any output.
 # XXX: should do this for subpixel orders too...
 require() {
-	type "$1" 2>/dev/null || {
+	type "$1" >/dev/null 2>/dev/null || {
 		echo "# not found:" "$1" >&2;
 		exit 1;
 	};
