@@ -367,7 +367,8 @@ cat << EOF
 	#undef get_contrib
 	vec3 comparison = contrib_left + contrib_right + contrib_centre;
 
-	vec3 diff_mult = vec3(${diff_expr:-diff_factor(centre, comparison)});
+	#define DIFF_FACTOR diff_factor(centre, comparison)
+	vec3 diff_mult = vec3(${diff_expr:-DIFF_FACTOR});
 
 	linear_ret *= diff_mult;
 
