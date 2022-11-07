@@ -43,6 +43,7 @@ vec4 hook() {
 		vec2 pix = origin + vec2(x, y);
 		vec2 pt = pix / SZ;
 		vec3 data = TEXF(pt).rgb;
+//#optreplace data = ${input_transform};
 
 		int idx_x = x + kernel_radius_x;
 		int idx_y = y + kernel_radius_y;
@@ -59,6 +60,7 @@ vec4 hook() {
 	total *= output_scale;
 
 	vec3 result = total;
+//#optreplace result = ${output_transform};
 
 	return vec4(result, 1.);
 }
