@@ -94,7 +94,6 @@ vec4 hook() {
 	total *= output_scale;
 
 	vec3 result = total;
-//#optreplace result = mix(original, total, ${mixv});
 
 //#optreplace if (${ab_expr}) result = original; 
 
