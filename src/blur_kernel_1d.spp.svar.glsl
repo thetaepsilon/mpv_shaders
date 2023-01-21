@@ -28,7 +28,6 @@ const accum_t output_scale = accum_t(${e:1.0});
 const vec2 stepv = vec2(${xs:0}, ${ys:0});
 
 accum_t transform(accum_t data) {
-//#optreplace data = pow(clamp(data, 0., 1.), accum_t(${input_gamma})) ;
 //#optreplace data = ${input_transform};
 	return data;
 }
@@ -65,7 +64,6 @@ vec4 hook() {
 
 	accum_t result = total;
 //#optreplace result = ${output_transform};
-//#optreplace result = pow(result, accum_t(1. / float(${output_gamma})) );
 	return RET(result);
 }
 
