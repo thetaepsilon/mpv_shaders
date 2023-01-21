@@ -88,7 +88,7 @@ vec4 hook() {
 	#else
 	const float scale = 1.0;
 	#endif
-	vec3 result = total * scale;
+	vec3 result = ${result_expr:total * scale};
 
 //#optreplace if (${ab_expr}) result = original; 
 
