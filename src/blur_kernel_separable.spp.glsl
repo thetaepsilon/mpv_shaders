@@ -66,8 +66,6 @@ vec4 hook() {
 const float bias_f = float( ${bias:0.} );
 const vec2 bias = vec2(0., bias_f);
 
-const float output_scale = ${e:1.0};
-
 vec4 hook() {
 	vec2 origin = gl_FragCoord.xy;
 	vec3 total = vec3(${initial:0.});
@@ -89,10 +87,6 @@ vec4 hook() {
 	const float scale = float(KERNEL_SCALE_VALUE);
 	total = ${scale_expr:total * scale};
 	#endif
-
-	total *= output_scale;
-
-	vec3 result = total;
 
 //#optreplace if (${ab_expr}) result = original; 
 
