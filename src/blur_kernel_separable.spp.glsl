@@ -85,8 +85,10 @@ vec4 hook() {
 
 	#ifdef KERNEL_SCALE_VALUE
 	const float scale = float(KERNEL_SCALE_VALUE);
-	total = ${scale_expr:total * scale};
+	#else
+	const float scale = 1.0;
 	#endif
+	vec3 result = total * scale;
 
 //#optreplace if (${ab_expr}) result = original; 
 
