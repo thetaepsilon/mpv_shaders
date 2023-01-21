@@ -28,7 +28,6 @@ vec3 vsample_core(vec2 vpix) {
 	vec2 realpix = floor(downscaled) + vec2(0.5);
 	vec2 real_pt = realpix / ${in}_size;
 	vec3 data = ${in}_tex(real_pt).rgb;
-//#optreplace data = pow(data, vec3(${input_gamma}));
 
 
 
@@ -121,7 +120,6 @@ vec3 vsample_core(vec2 vpix) {
 	vec2 realpix = floor(downscaled) + vec2(0.5);
 	vec2 real_pt = realpix / ${in}_size;
 	vec3 data = ${in}_tex(real_pt).rgb;
-//#optreplace data = pow(data, vec3(${input_gamma}));
 
 
 
@@ -191,7 +189,6 @@ vec4 hook() {
 
 	vec3 result = total * exposure;
 
-//#optreplace result = pow(result, vec3(1.0) / vec3(${output_gamma}) );
 //#optreplace if (${ab_expr}) result = original; 
 
 	return vec4(result, 1.);

@@ -25,13 +25,11 @@ vec4 hook() {
 		vec2 srcpix = vec2(ox + x, oy + y);
 		vec2 srcpt = srcpix / SZ;
 		vec3 data = TEXF(srcpt).rgb;
-//#optreplace data = pow(clamp(data, 0., 1.), vec3(${input_gamma}));
 		total += data;
 	}
 	}
 
 	vec3 result = total * scaler;
-//#optreplace result = pow(result, vec3(1 / ${output_gamma}));
 	return vec4(result, 1.);
 }
 

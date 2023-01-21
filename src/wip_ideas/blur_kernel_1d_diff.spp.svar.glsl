@@ -21,7 +21,6 @@ vec4 read(vec2 pix) {
 	vec2 pt = pix / SZ;
 	vec4 data = TEXF(pt);
 
-//#optreplace data.rgb = pow(max(data.rgb, vec3(0.0)), vec3(${input_gamma}));	
 
 	return data;
 }
@@ -86,7 +85,6 @@ vec4 hook() {
 
 
 	vec3 result = total;
-//#optreplace result = pow(result, vec3(1. / float(${output_gamma})));
 	return vec4(result, 1.);
 }
 

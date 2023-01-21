@@ -42,7 +42,6 @@ vec4 hook() {
 		vec2 pix = origin + (vec2(i) * stepv);
 		vec2 pt = pix / SZ;
 		vec3 data = TEXF(pt).rgb;
-//#optreplace data = pow(clamp(data, 0., 1.), vec3(${input_gamma}));
 
 		float dist = abs(i) * step_distance;
 		float w = kernel_function(dist);
@@ -57,7 +56,6 @@ vec4 hook() {
 
 
 	vec3 result = total;
-//#optreplace result = pow(result, vec3(1 / ${output_gamma}));
 	return vec4(result, 1.);
 }
 

@@ -24,12 +24,10 @@ vec4 hook() {
 		vec2 srcpix = origin + vec2(float(x), 0.);
 		vec2 srcpt = srcpix / SZ;
 		vec3 data = TEXF(srcpt).rgb;
-//#optreplace data = pow(clamp(data, 0., 1.), vec3(${input_gamma}));
 		total += data;
 
 	}
 	vec3 result = total * scaler;
-//#optreplace result.rgb = pow(result.rgb, vec3(1.) / vec3(${output_gamma}));
 	return vec4(result, 1.);
 }
 
