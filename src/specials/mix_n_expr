@@ -1,0 +1,56 @@
+#!/bin/sh
+set -eu;
+
+usage() {
+	cat >&2 <<EOF
+# Usage: $0 expr in1 [in2 in3...]
+EOF
+
+	exit 1;
+}
+
+err() {
+	echo "#" "$@" >&2;
+}
+
+if test "$#" -lt 2; then usage; fi;
+
+expr="$1";
+shift;
+
+hookpoint="${at:-LINEAR}";
+out="${out:-$1}";
+include="${include:-}";
+
+echo "//!HOOK ${hookpoint}";
+echo "//!DESC mix arbitrary count of textures together (stretched to match first input)"
+for i in "$@"; do {
+	echo "//!BIND ${i}";
+}; done;
+cat << EOF
+//!SAVE ${out}
+//!WIDTH ${1}.w
+//!HEIGHT ${1}.h
+EOF
+if test -n "$include"; then {
+	echo;
+	cat "$include";
+}; fi;
+
+cat <<EOF
+
+vec4 hook() {
+	vec2 pos = ${1}_pos;
+
+EOF
+for i in $(seq 1 $#); do {
+	echo "	vec4 data$i = $(eval "echo \$$i")_tex(pos);";
+}; done;
+cat <<EOF
+
+	vec4 total = ${expr};
+
+	return total;
+}
+EOF
+
