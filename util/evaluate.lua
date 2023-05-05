@@ -5,6 +5,9 @@ Usage: evaluate.lua start stop step expr
 generic expression evaluator.
 expr must take the form of a valid lua expression of x, e.g. "math.sin(x) / x".
 start, stop and step are the usual numeric arguments to a lua range for loop.
+the constant WIDTH may be used in the expression, it is set to the value of step,
+and may be of use to normalise values for approximating integrals.
+
 optional env vars:
 format: overrides the default used for string.format of result values.
 ]]
@@ -25,7 +28,7 @@ local start = n(_start, "start")
 local stop = n(_stop, "stop")
 local step = n(_step, "step")
 
-local compile = "return function(x) return ( " .. expr .. " ) end"
+local compile = "return function(x, WIDTH) return ( " .. expr .. " ) end"
 local chunk = assert(loadstring(compile))
 local f = chunk()
 
@@ -36,7 +39,8 @@ local buf = {}
 local l = 0
 for x = start, stop, step do
 	l = l + 1
-	buf[l] = f(x)
+	local WIDTH = step
+	buf[l] = f(x, WIDTH)
 end
 
 local fmt = os.getenv("format") or "%.12f"
