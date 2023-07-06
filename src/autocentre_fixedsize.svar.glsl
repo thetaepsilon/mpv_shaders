@@ -4,10 +4,15 @@
 //!BIND ${in}
 
 
+const float interval = float(${blankdraw_interval:10});
+
+bool shouldblank() {
+	return ${blank_condition:(int(mod(float(frame), interval)) == 0)};
+}
 
 vec4 blank() {
-	if (int(mod(float(frame), float(${blankdraw_interval:10}))) == 0) {
-		return vec4(0.);
+	if (shouldblank()) {
+		return vec4(${blank_colour:0.});
 	} else {
 		discard;
 	}
