@@ -1,7 +1,7 @@
-//!HOOK MAINPRESUB
+//!HOOK ${at:LINEAR}
 //!BIND ${in}
 //!DESC luminance blur, 1/d2 falloff, 2D (WARNING: O(r^2), EXPENSIVE AF)
-//!SAVE ${in}
+//!SAVE ${out:$in}
 //!WIDTH ${in}.w
 //!HEIGHT ${in}.h
 
