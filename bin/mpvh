@@ -1,0 +1,2 @@
+#!/bin/sh
+exec mpv --hwdec=auto --opengl-es=yes "$@";
