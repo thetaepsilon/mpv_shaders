@@ -23,6 +23,7 @@ const vec2 blue_shift = vec2(shift, 0.);
 
 vec4 hook() {
 	vec2 origin = gl_FragCoord.xy;
+//#optreplace origin = origin + vec2(${offset});
 
 	float r = get(origin + red_shift).r;
 	float g = get(origin + green_shift).g;
