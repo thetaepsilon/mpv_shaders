@@ -32,6 +32,12 @@ const vec3 kernel_scale = vec3( KERNEL_SCALE );
 #endif // KERNEL_DIRECT_DEFINE
 
 
+
+vec3 transform(vec3 data) {
+//#optreplace data = ${input_transform};
+        return data;
+}
+
 vec4 hook() {
 	vec2 origin = gl_FragCoord.xy;
 	vec3 total = vec3(0.);
@@ -43,7 +49,7 @@ vec4 hook() {
 		vec2 pix = origin + vec2(x, y);
 		vec2 pt = pix / SZ;
 		vec3 data = TEXF(pt).rgb;
-//#optreplace data = ${input_transform};
+		data = transform(data);
 
 		int idx_x = x + kernel_radius_x;
 		int idx_y = y + kernel_radius_y;
