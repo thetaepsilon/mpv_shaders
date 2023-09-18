@@ -9,6 +9,7 @@ const vec3 kernel_data[KERNEL_SIZE] = vec3[](
 	V(-1), V( 8), V(-1),
 	V(-1), V(-1), V(-1)
 );
+#undef V
 
 const float kernel_scale = 0.125;
 
