@@ -42,6 +42,11 @@ vec4 hook() {
 	vec2 origin = gl_FragCoord.xy;
 	vec3 total = vec3(0.);
 
+#if ${load_origin:0}
+        vec3 original_raw = TEXF(${in}_pos).rgb;
+        vec3 original = transform(original_raw);
+#endif
+
 	#define LOOP(d) int d = -kernel_radius_ ## d; d <= kernel_radius_ ## d; d++
 
 	for (LOOP(y)) {
