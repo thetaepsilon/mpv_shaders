@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# assume the input has square pixels despite intended display aspect ratio
+# (useful when using shader passes that handle the aspect ratio themselves)
+
+exec mpvh --video-aspect-override=0 "$@";

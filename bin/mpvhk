@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# always draw over the entire screen,
+# regardless of input video's display aspect ratio.
+# note that this by itself (without using a pixel-exact drawing shader)
+# will stretch the video across the entire screen without preserving aspect.
+# this is typically used with the exact_output shader passes,
+# in order to have access to *all* screen pixels -
+# mpvhz OTOH will only use the shaders to draw an aspect-preserving area.
+
+exec mpvh --no-keepaspect "$@";

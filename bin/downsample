@@ -1,0 +1,22 @@
+#!/bin/sh
+
+# shader chain shortcut for obtaining downsampled video.
+# checks for variable called "m" which denotes if downsampling should be done.
+# this is useful for testing 3D content to emulate rendering that game or such at lower resolution.
+# if it is 1 or less, this helper emits nothing.
+# otherwise, it will call svar on src/downsample_nearest_multiplier.svar.glsl,
+# setting x to the value of m, run it into cs, then echo it as a shader argument.
+# this is essentially intended to be used as mpv $(downsample) [other shaders here...].
+
+test -n "${m:-}" && {
+	test "1" -lt "$m" && {
+		echo --glsl-shader="$( \
+			svar \
+					x "$m" \
+					in MAINPRESUB \
+				< "$SHADER_SRC/downsample_nearest_multiplier.svar.glsl" \
+			| cs
+		)";
+	};
+};
+

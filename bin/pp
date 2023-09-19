@@ -1,0 +1,2 @@
+#!/bin/sh
+exec cpp -C -ftrack-macro-expansion=0 -P -undef -nostdinc;
