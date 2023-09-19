@@ -2,7 +2,6 @@
 set -eu;
 
 exec mpvhk \
-	$(downsample) \
 	--linear-upscaling --linear-downscaling \
 	--glsl-shader=$(spp kernel spp/blur_kernels/2d/edgedetect/3x3_laplacian_with_diagonals.frag.glsl < blur_kernel_2d.spp.svar.glsl \
 		| svar \
