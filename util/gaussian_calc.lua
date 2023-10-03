@@ -266,6 +266,19 @@ end
 
 
 
+local list_to_set = function(list)
+	local set = {}
+	for i, v in ipairs(list) do
+		set[v] = true
+	end
+	return set
+end
+
+
+
+
+
+
 -- env vars used for optional plotting later but is validated up front.
 local env = os.getenv
 local getenv_nat_optional = function(name)
@@ -283,13 +296,52 @@ local getenv_nat_optional = function(name)
 	end
 end
 
+-- XXX: there's _reaaaaally_ a bunch of stuff I should shove in a library here...
+local yeslist = {
+	"yes",
+	"true",
+	"1",
+}
+local nolist = {
+	"no",
+	"false",
+	"0",
+	""
+}
+local yesset = list_to_set(yeslist)
+local noset = list_to_set(nolist)
+
+local getenv_bool_optional = function(name, default)
+	local var = env(name)
+	if var then
+		if yesset[var] then
+			return true
+		elseif noset[var] then
+			return false
+		else
+			error("invalid boolean value in optional env var " .. name)
+		end
+	else
+		return default
+	end
+end
+
 local height = getenv_nat_optional("plot_height")
 local trim = getenv_nat_optional("plot_trim") or 0
 local precision = getenv_nat_optional("format_precision") or 15
-assert(precision > 0, "format_precision needs to be >0 to get useful output.")
+--assert(precision > 0, "format_precision needs to be >0 to get useful output.")
+
+local no_normalise = getenv_bool_optional("no_normalise", false)
+
 
 local iter_count, raw, size, r = getargs(...)
-local kernel = normalize(raw, size)
+local kernel
+if no_normalise then
+	kernel = raw
+	kernel.size = size
+else
+	kernel = normalize(raw, size)
+end
 kernel.radius = r
 kernel.centre = r + 1
 
